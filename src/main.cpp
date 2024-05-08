@@ -46,8 +46,7 @@ void loop()
     ticker.start();
     strategy.stratA_BLUE(&lidarStatus);
     strategy.display.Show("SCORE", "45", "", "");
-    strategy.actuators.funnyAction();
     while (1)
-        ;
+        strategy.actuators.funnyAction();
     ;
 }

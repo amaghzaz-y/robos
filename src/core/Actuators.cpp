@@ -251,9 +251,10 @@ void Actuators::elevateObject(int SIDE, int LEVEL)
 
 void Actuators::funnyAction()
 {
-	servoDriver.setPin(SERVO_FUNNY_ACTION, 4095);
-	delay(15000);
-	servoDriver.setPin(SERVO_FUNNY_ACTION, 0);
+	releaseAll();
+	delay(1500);
+	foldAll();
+	delay(1500);
 }
 
 void Actuators::dropCherryStream()
