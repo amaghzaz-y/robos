@@ -4,29 +4,21 @@ void Actuators::pickObject(int SIDE)
 {
 	if (SIDE == SIDE_A_ID)
 	{
-		for (uint16_t microsec = USMIN; microsec < USMAX; microsec++)
-		{
-			servoDriver.writeMicroseconds(SERVO_SIDE_A_L, microsec);
-			servoDriver.writeMicroseconds(SERVO_SIDE_A_R, (USMAX - microsec) + 950);
-		}
+		servoDriver.writeMicroseconds(SERVO_SIDE_A_L, FOLD_L);
+		servoDriver.writeMicroseconds(SERVO_SIDE_A_R, FOLD_R);
 		side_A_full = true;
 	}
 	if (SIDE == SIDE_B_ID)
 	{
-		for (uint16_t microsec = USMIN; microsec < (USMAX + 150); microsec++)
-		{
-			servoDriver.writeMicroseconds(SERVO_SIDE_B_L, microsec);
-			servoDriver.writeMicroseconds(SERVO_SIDE_B_R, ((USMAX + 150) - microsec) + 720);
-		}
+		servoDriver.writeMicroseconds(SERVO_SIDE_B_L, FOLD_L);
+		servoDriver.writeMicroseconds(SERVO_SIDE_B_R, FOLD_R);
 		side_B_full = true;
 	}
 	if (SIDE == SIDE_C_ID)
 	{
-		for (uint16_t microsec = USMIN; microsec < (USMAX + 200); microsec++)
-		{
-			servoDriver.writeMicroseconds(SERVO_SIDE_C_L, microsec);
-			servoDriver.writeMicroseconds(SERVO_SIDE_C_R, ((USMAX + 200) - microsec) + 670);
-		}
+
+		servoDriver.writeMicroseconds(SERVO_SIDE_C_L, FOLD_L);
+		servoDriver.writeMicroseconds(SERVO_SIDE_C_R, FOLD_R);
 		side_C_full = true;
 	}
 }
@@ -35,29 +27,21 @@ void Actuators::releaseObject(int SIDE)
 {
 	if (SIDE == SIDE_A_ID)
 	{
-		for (uint16_t microsec = (USMAX + 150); microsec > 1300; microsec--)
-		{
-			servoDriver.writeMicroseconds(SERVO_SIDE_A_L, microsec);
-			servoDriver.writeMicroseconds(SERVO_SIDE_A_R, ((USMAX + 150) - microsec) + 720);
-		}
+		servoDriver.writeMicroseconds(SERVO_SIDE_A_L, RELEASE_L);
+		servoDriver.writeMicroseconds(SERVO_SIDE_A_R, RELEASE_R);
+
 		side_A_full = false;
 	}
 	if (SIDE == SIDE_B_ID)
 	{
-		for (uint16_t microsec = (USMAX + 150); microsec > 1300; microsec--)
-		{
-			servoDriver.writeMicroseconds(SERVO_SIDE_B_L, microsec);
-			servoDriver.writeMicroseconds(SERVO_SIDE_B_R, ((USMAX + 150) - microsec) + 720);
-		}
+		servoDriver.writeMicroseconds(SERVO_SIDE_B_L, RELEASE_L);
+		servoDriver.writeMicroseconds(SERVO_SIDE_B_R, RELEASE_R);
 		side_B_full = false;
 	}
 	if (SIDE == SIDE_C_ID)
 	{
-		for (uint16_t microsec = (USMAX + 150); microsec > 1300; microsec--)
-		{
-			servoDriver.writeMicroseconds(SERVO_SIDE_C_L, microsec);
-			servoDriver.writeMicroseconds(SERVO_SIDE_C_R, ((USMAX + 150) - microsec) + 720);
-		}
+		servoDriver.writeMicroseconds(SERVO_SIDE_C_L, RELEASE_L);
+		servoDriver.writeMicroseconds(SERVO_SIDE_C_R, RELEASE_R);
 		side_C_full = false;
 	}
 }
@@ -84,11 +68,11 @@ bool Actuators::isObjectPicked(int SIDE)
 
 void Actuators::dropCherry()
 {
-	servoDriver.writeMicroseconds(SERVO_CHERRY_A, 2400);
+	servoDriver.writeMicroseconds(SERVO_CHERRY_A, 2300);
 	delay(20);
-	servoDriver.writeMicroseconds(SERVO_CHERRY_B, 2400);
+	servoDriver.writeMicroseconds(SERVO_CHERRY_B, 2300);
 	delay(20);
-	servoDriver.writeMicroseconds(SERVO_CHERRY_C, 2400);
+	servoDriver.writeMicroseconds(SERVO_CHERRY_C, 2300);
 	delay(20);
 }
 void Actuators::setup()
@@ -98,33 +82,35 @@ void Actuators::setup()
 	servoDriver.begin();
 	servoDriver.setOscillatorFrequency(28000000);
 	servoDriver.setPWMFreq(SERVO_FREQ);
-	delay(30);
+	delay(500);
+	releaseAll();
+	delay(500);
 	foldAll();
-	delay(30);
+	delay(500);
 	delevateAll();
-	delay(30);
+	delay(500);
 	Serial.println("Actuators :: setup done");
 }
 
 void Actuators::foldAll()
 {
-	servoDriver.writeMicroseconds(SERVO_SIDE_A_L, 2300);
-	servoDriver.writeMicroseconds(SERVO_SIDE_A_R, 500);
-	servoDriver.writeMicroseconds(SERVO_SIDE_B_L, 2300);
-	servoDriver.writeMicroseconds(SERVO_SIDE_B_R, 500);
-	servoDriver.writeMicroseconds(SERVO_SIDE_C_L, 2300);
-	servoDriver.writeMicroseconds(SERVO_SIDE_C_R, 500);
+	servoDriver.writeMicroseconds(SERVO_SIDE_A_L, FOLD_L);
+	servoDriver.writeMicroseconds(SERVO_SIDE_A_R, FOLD_R);
+	servoDriver.writeMicroseconds(SERVO_SIDE_B_L, FOLD_L);
+	servoDriver.writeMicroseconds(SERVO_SIDE_B_R, FOLD_R);
+	servoDriver.writeMicroseconds(SERVO_SIDE_C_L, FOLD_L);
+	servoDriver.writeMicroseconds(SERVO_SIDE_C_R, FOLD_R);
 }
 
-void Actuators::defoldAll()
+void Actuators::releaseAll()
 {
 	Serial.println("defolding");
-	servoDriver.writeMicroseconds(SERVO_SIDE_A_L, 1700);
-	servoDriver.writeMicroseconds(SERVO_SIDE_A_R, 1000);
-	servoDriver.writeMicroseconds(SERVO_SIDE_B_L, 1700);
-	servoDriver.writeMicroseconds(SERVO_SIDE_B_R, 1000);
-	servoDriver.writeMicroseconds(SERVO_SIDE_C_L, 1700);
-	servoDriver.writeMicroseconds(SERVO_SIDE_C_R, 1000);
+	servoDriver.writeMicroseconds(SERVO_SIDE_A_L, RELEASE_L);
+	servoDriver.writeMicroseconds(SERVO_SIDE_A_R, RELEASE_R);
+	servoDriver.writeMicroseconds(SERVO_SIDE_B_L, RELEASE_L);
+	servoDriver.writeMicroseconds(SERVO_SIDE_B_R, RELEASE_R);
+	servoDriver.writeMicroseconds(SERVO_SIDE_C_L, RELEASE_L);
+	servoDriver.writeMicroseconds(SERVO_SIDE_C_R, RELEASE_R);
 	Serial.println("defolded");
 }
 
@@ -348,16 +334,6 @@ void Actuators::delevateObject(int SIDE, int LEVEL)
 		}
 	}
 }
-
-void Actuators::setToZero()
-{
-	servoDriver.writeMicroseconds(0, 200);
-	servoDriver.writeMicroseconds(1, 2400);
-	servoDriver.writeMicroseconds(2, 2400);
-	servoDriver.writeMicroseconds(3, 200);
-	servoDriver.writeMicroseconds(4, 200);
-	servoDriver.writeMicroseconds(5, 2400);
-};
 
 void Actuators::delevateAll()
 {

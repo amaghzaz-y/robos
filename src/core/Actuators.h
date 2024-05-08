@@ -2,10 +2,14 @@
 #include <Arduino.h>
 #include "lib/pwnservo/Adafruit_PWMServoDriver.h"
 
-#define SERVOMIN 150  // This is the 'minimum' pulse length count (out of 4096)
-#define SERVOMAX 600  // This is the 'maximum' pulse length count (out of 4096)
-#define USMIN 1500	  // This is the rounded 'minimum' microsecond length based on the minimum pulse of 150
-#define USMAX 1750	  // This is the rounded 'maximum' microsecond length based on the maximum pulse of 600
+#define SERVOMIN 150 // This is the 'minimum' pulse length count (out of 4096)
+#define SERVOMAX 600 // This is the 'maximum' pulse length count (out of 4096)
+#define USMIN 1500	 // This is the rounded 'minimum' microsecond length based on the minimum pulse of 150
+#define USMAX 1750	 // This is the rounded 'maximum' microsecond length based on the maximum pulse of 600
+#define FOLD_L 2300
+#define FOLD_R 500
+#define RELEASE_L 1700
+#define RELEASE_R 1000
 #define SERVO_FREQ 50 // Analog servos run at ~50 Hz updates
 #define US_LEVEL_0 450
 #define US_LEVEL_1 750
@@ -48,9 +52,8 @@ public:
 	void delevateObject(int SIDE, int LEVEL);
 	void delevateAll();
 	void performTEST();
-	void setToZero();
 	void foldAll();
-	void defoldAll();
+	void releaseAll();
 	void initCook();
 	void normalize();
 	void dropCherry();
