@@ -9,10 +9,9 @@ void Strategy::setup()
 	actuators.setup();
 	neopixel.setup();
 	sensors.setup();
-	// pinMode(INIT_PIN, INPUT_PULLUP);
-	// pinMode(TEAM_PIN, INPUT);
-	// pinMode(REED_PIN, INPUT_PULLUP);
-	// pinMode(PIN_L4, INPUT_PULLUP);
+	pinMode(INIT_PIN, INPUT_PULLUP);
+	pinMode(TEAM_PIN, INPUT);
+	pinMode(REED_PIN, INPUT_PULLUP);
 	Serial.println("STRATEGY :: SETUP DONE");
 }
 
@@ -58,7 +57,7 @@ void Strategy::testINPUT()
 	Serial.print("   L3 : ");
 	Serial.print(digitalRead(PIN_L3));
 	// Serial.print("   L4 : ");
-	// Serial.println(digitalRead(PIN_L4));s
+	// Serial.println(digitalRead(PIN_L4));
 }
 
 void Strategy::stop()
@@ -68,6 +67,7 @@ void Strategy::stop()
 	movement.FullStop();
 	neopixel.changeColor(3);
 	Serial.println("FULL STOP HAS BEEN COMPLETE");
+	// display.Show("SCORE:", "45", "SCORE:", "45");
 }
 
 void Strategy::Ready()

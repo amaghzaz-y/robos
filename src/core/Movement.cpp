@@ -436,3 +436,19 @@ void Movement::TestGoEast()
 	bool lidar = false;
 	Execute(Point2D(200, 0), &lidar);
 }
+
+void Movement::TestBasic()
+{
+	// A1.runToNewPosition(8000);
+	// delay(1000);
+	// A1.runToNewPosition(-8000);
+	// delay(1000);
+	A2.runToNewPosition(8000);
+	delay(1000);
+	A2.runToNewPosition(-8000);
+	delay(1000);
+	A3.runToNewPosition(8000);
+	delay(1000);
+	A3.runToNewPosition(-8000);
+	delay(1000);
+}

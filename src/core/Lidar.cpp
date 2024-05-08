@@ -4,7 +4,7 @@
 void Lidar::setup()
 {
 	Serial.println("Lidar :: SETUP");
-	lidar.begin(Serial2);
+	lidar.begin(Serial1, PIN_SOFT_SERIAL_RX, PIN_SOFT_SERIAL_TX);
 	opponentDetected = false;
 	Serial.println("Lidar :: SETUP DONE");
 	// currentPosition = &(Point2D(0, 0));

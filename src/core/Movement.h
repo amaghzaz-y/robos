@@ -82,4 +82,5 @@ public:
 	void TestGoSouth();
 	void TestGoWest();
 	void TestGoEast();
+	void TestBasic();
 };
