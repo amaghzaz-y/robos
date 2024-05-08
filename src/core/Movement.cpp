@@ -322,9 +322,12 @@ void Movement::setSide(float angle)
 
 void Movement::Calibrate()
 {
+	ACCEL = MAX_ACCEL / 2;
+	SPEED = MAX_SPEED / 2;
 	if (team == 0)
 	{
 		Serial.println("calibrating for team 0");
+
 		moveTo(PolarVec(SIDE_B, 200).ToSteps());
 		runSync();
 		moveTo(PolarVec(SIDE_CA, 115).ToSteps());
@@ -365,6 +368,8 @@ void Movement::Calibrate()
 		// rotateTo(SIDE_AB);
 		// runSync();
 	}
+	ACCEL = MAX_ACCEL;
+	SPEED = MAX_SPEED;
 }
 
 bool Movement::isCalibrated()

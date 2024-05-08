@@ -5,6 +5,8 @@
 #include <types/Point2D.h>
 #include <utils/utils.h>
 #include "utils/PINS.h"
+#define MAX_SPEED 4000
+#define MAX_ACCEL 6000
 
 const int SIDE_A = 360;
 const int SIDE_AB = 60;
@@ -12,11 +14,6 @@ const int SIDE_B = 120;
 const int SIDE_BC = -180;
 const int SIDE_C = -120;
 const int SIDE_CA = -60;
-
-const double SPEED = 4000.0;
-const double ACCEL = 6000.0;
-
-const double ACCEL_SUPER = 10000;
 
 const float INITIAL_X_GREEN = 211.50; // value in mm
 const float INITIAL_Y_GREEN = 251;	  // mm
@@ -50,6 +47,9 @@ private:
 
 public:
 	Movement();
+	double SPEED = 4000.0;
+	double ACCEL = 6000.0;
+	const double ACCEL_SUPER = 10000;
 	void doRotation();
 	void run();
 	void runSync();
