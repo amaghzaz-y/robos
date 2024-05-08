@@ -108,43 +108,23 @@ void Actuators::setup()
 
 void Actuators::foldAll()
 {
-	Serial.println("folding");
-	for (uint16_t microsec = USMIN; microsec < 2400; microsec++)
-	{
-		servoDriver.writeMicroseconds(SERVO_SIDE_A_L, 2300);
-		servoDriver.writeMicroseconds(SERVO_SIDE_A_R, 500);
-	}
-	for (uint16_t microsec = USMIN; microsec < 2400; microsec++)
-	{
-		servoDriver.writeMicroseconds(SERVO_SIDE_B_L, 2300);
-		servoDriver.writeMicroseconds(SERVO_SIDE_B_R, 475);
-	}
-	for (uint16_t microsec = USMIN; microsec < 2400; microsec++)
-	{
-		servoDriver.writeMicroseconds(SERVO_SIDE_C_L, 2300);
-		servoDriver.writeMicroseconds(SERVO_SIDE_C_R, 480);
-	}
+	servoDriver.writeMicroseconds(SERVO_SIDE_A_L, 2300);
+	servoDriver.writeMicroseconds(SERVO_SIDE_A_R, 500);
+	servoDriver.writeMicroseconds(SERVO_SIDE_B_L, 2300);
+	servoDriver.writeMicroseconds(SERVO_SIDE_B_R, 500);
+	servoDriver.writeMicroseconds(SERVO_SIDE_C_L, 2300);
+	servoDriver.writeMicroseconds(SERVO_SIDE_C_R, 500);
 }
 
 void Actuators::defoldAll()
 {
 	Serial.println("defolding");
-	for (uint16_t microsec = USMAX; microsec > USMIN; microsec--)
-	{
-		servoDriver.writeMicroseconds(SERVO_SIDE_A_L, microsec);
-		servoDriver.writeMicroseconds(SERVO_SIDE_A_R, (USMAX - microsec) + 900);
-	}
-	for (uint16_t microsec = USMAX; microsec > USMIN; microsec--)
-	{
-
-		servoDriver.writeMicroseconds(SERVO_SIDE_B_L, microsec);
-		servoDriver.writeMicroseconds(SERVO_SIDE_B_R, (USMAX - microsec) + 600);
-	}
-	for (uint16_t microsec = USMAX; microsec > USMIN; microsec--)
-	{
-		servoDriver.writeMicroseconds(SERVO_SIDE_C_L, microsec);
-		servoDriver.writeMicroseconds(SERVO_SIDE_C_R, (USMAX - microsec) + 700);
-	}
+	servoDriver.writeMicroseconds(SERVO_SIDE_A_L, 1700);
+	servoDriver.writeMicroseconds(SERVO_SIDE_A_R, 1000);
+	servoDriver.writeMicroseconds(SERVO_SIDE_B_L, 1700);
+	servoDriver.writeMicroseconds(SERVO_SIDE_B_R, 1000);
+	servoDriver.writeMicroseconds(SERVO_SIDE_C_L, 1700);
+	servoDriver.writeMicroseconds(SERVO_SIDE_C_R, 1000);
 	Serial.println("defolded");
 }
 
