@@ -51,6 +51,7 @@ public:
 	void elevateObject(int SIDE, int LEVEL);
 	void delevateObject(int SIDE, int LEVEL);
 	void delevateAll();
+	void elevateAll();
 	void performTEST();
 	void foldAll();
 	void releaseAll();

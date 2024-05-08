@@ -89,6 +89,8 @@ void Actuators::setup()
 	delay(500);
 	delevateAll();
 	delay(500);
+	elevateAll();
+	delay(500);
 	Serial.println("Actuators :: setup done");
 }
 
@@ -341,7 +343,12 @@ void Actuators::delevateAll()
 	delevateObject(SIDE_B_ID, 0);
 	delevateObject(SIDE_C_ID, 0);
 }
-
+void Actuators::elevateAll()
+{
+	elevateObject(SIDE_A_ID, 3);
+	elevateObject(SIDE_B_ID, 3);
+	elevateObject(SIDE_C_ID, 3);
+}
 void Actuators::initCook()
 {
 	releaseObject(SIDE_A_ID);

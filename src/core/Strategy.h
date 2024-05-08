@@ -12,14 +12,11 @@
 #include "core/Sensors.h"
 #define HEIGHT 2000 // value in mm
 #define WIDTH 1500	// value in mm
-// const int PIN_IFM3 = 34;
-// const int PIN_IFM2 = 36;
-// const int PIN_IFM2 = 39;
 
 const int PIN_RST_OLED = 19;
-const int REED_PIN = PIN_L1;
 const int INIT_PIN = PIN_L2;
-const int TEAM_PIN = PIN_L3;
+const int TEAM_PIN = PIN_L1;
+const int REED_PIN = PIN_L3;
 
 class Strategy
 {

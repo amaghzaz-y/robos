@@ -10,8 +10,8 @@ void Strategy::setup()
 	neopixel.setup();
 	sensors.setup();
 	pinMode(INIT_PIN, INPUT_PULLUP);
-	pinMode(TEAM_PIN, INPUT);
 	pinMode(REED_PIN, INPUT_PULLUP);
+	pinMode(TEAM_PIN, INPUT_PULLUP);
 	Serial.println("STRATEGY :: SETUP DONE");
 }
 
@@ -36,7 +36,7 @@ void Strategy::teamSelection()
 	{
 		movement.setTeam(0);
 		team = 0;
-		display.Show("TEAM", "GREEN", "", "");
+		display.Show("TEAM", "YELLOW", "", "");
 		neopixel.changeColor(1);
 	}
 	else
@@ -50,12 +50,13 @@ void Strategy::teamSelection()
 
 void Strategy::testINPUT()
 {
-	Serial.print("L1 : ");
-	Serial.print(digitalRead(PIN_L1));
-	Serial.print("   L2 : ");
-	Serial.print(digitalRead(PIN_L2));
-	Serial.print("   L3 : ");
-	Serial.print(digitalRead(PIN_L3));
+	Serial.print("REED : ");
+	Serial.print(digitalRead(REED_PIN));
+	Serial.print("   INIT : ");
+	Serial.print(digitalRead(INIT_PIN));
+	Serial.print("   TEAM : ");
+	Serial.print(digitalRead(TEAM_PIN));
+	Serial.println();
 	// Serial.print("   L4 : ");
 	// Serial.println(digitalRead(PIN_L4));
 }
