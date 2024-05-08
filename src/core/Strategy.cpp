@@ -37,8 +37,8 @@ void Strategy::teamSelection()
 
 	if (digitalRead(TEAM_PIN) == 0)
 	{
-		movement.setTeam(0);
-		team = 0;
+		movement.setTeam(1);
+		team = 1;
 		display.Show("TEAM", "YELLOW", "", "");
 		neopixel.changeColor(1);
 	}
