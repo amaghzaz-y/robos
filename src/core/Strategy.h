@@ -43,14 +43,7 @@ public:
 	void startSEMIOFFSET(bool *lidar);
 	void stop();
 	void setPoints(Point2D *points, int len);
-	void startStratA(bool *lidar);
-	void startStratB(bool *lidar);
-	void startStratC(bool *lidar);
-	void startStratD(bool *lidar);
-	// demo for normal strategy
-	void Demo2(bool *lidar);
-	void Demo1(bool *lidar);
-	void cookMeth(bool *lidar);
+	void stratA(bool *lidar);
 	void afterCalibration(bool *lidar);
 	void Homologuation(bool *lidar);
 	Point2D getCurrentPoint();

@@ -1,110 +1,47 @@
 #pragma once
-
 #include "utils/utils.h"
+
 namespace POI
 {
 
 	// ------------------------------------------
-	// Zones de départ
-	const Vec2 b1 = Vec2(225, 1775);  // BLUE
-	const Vec2 b2 = Vec2(1875, 1775); // BLUE
-	const Vec2 b3 = Vec2(2775, 1275); // BLUE
-	const Vec2 b4 = Vec2(2775, 225);  // BLUE
-	const Vec2 b5 = Vec2(1125, 225);  // BLUE
+	// Departure Areas - Center
+	const Vec2 b1 = Vec2(225, 225);	  // BLUE
+	const Vec2 b2 = Vec2(225, 1775);  // BLUE
+	const Vec2 b3 = Vec2(2775, 1000); // BLUE
 
-	const Vec2 v1 = Vec2(225, 225);	  // GREEN
-	const Vec2 v2 = Vec2(1875, 225);  // GREEN
-	const Vec2 v3 = Vec2(2775, 725);  // GREEN
-	const Vec2 v4 = Vec2(2775, 1775); // GREEN
-	const Vec2 v5 = Vec2(1125, 1775); // GREEN
-
+	const Vec2 y1 = Vec2(2775, 1775); // YELLOW
+	const Vec2 y2 = Vec2(2775, 225);  // YELLOW
+	const Vec2 y3 = Vec2(225, 1000);  // YELLOW
 	// ------------------------------------------
-	// Placement des cakes
-	const Vec2 cakePinkSE = Vec2(575, 1775);  // PINK
-	const Vec2 cakePinkNE = Vec2(2425, 1775); // PINK
-	const Vec2 cakePinkNW = Vec2(2425, 225);  // PINK
-	const Vec2 cakePinkSW = Vec2(575, 225);	  // PINK
+	// Plant Supply - Center
+	const Vec2 plantSupplySE = Vec2(1000, 1300); // Plant supply SOUTH EAST
+	const Vec2 plantSupplySW = Vec2(1000, 700);	 // Plant supply SOUTH WEST
 
-	const Vec2 cakeYellowSE = Vec2(775, 1775);	// YELLOW
-	const Vec2 cakeYellowNE = Vec2(2225, 1775); // YELLOW
-	const Vec2 cakeYellowNW = Vec2(2225, 225);	// YELLOW
-	const Vec2 cakeYellowSW = Vec2(775, 225);	// YELLOW
+	const Vec2 plantSupplyNE = Vec2(2000, 1300); // Plant supply NORTH EAST
+	const Vec2 plantSupplyNW = Vec2(2000, 700);	 // Plant supply NORTH WEST
 
-	const Vec2 cakeBrownSE = Vec2(1125, 1275); // BROWN
-	const Vec2 cakeBrownNE = Vec2(1875, 1275); // BROWN
-	const Vec2 cakeBrownNW = Vec2(1875, 725);  // BROWN
-	const Vec2 cakeBrownSW = Vec2(1125, 725);  // BROWN
-
+	const Vec2 plantSupplyW = Vec2(1500, 500);	// Plant supply WEST
+	const Vec2 plantSupplyE = Vec2(1500, 1500); // Plant supply EAST
 	// ------------------------------------------
-	// Distributeurs de balles
-	// Distributeur SOUTH
-	const Vec2 ballBeginSE = Vec2(300, 1125); // RED
-	const Vec2 ballEndSE = Vec2(200, 1125);	  // RED
+	// Solar Panels
+	const Vec2 solarPanelBlue_1 = Vec2(275, 1800); // Solar panel Blue 1
+	const Vec2 solarPanelBlue_2 = Vec2(500, 1800); // Solar panel Blue 2
+	const Vec2 solarPanelBlue_3 = Vec2(725, 1800); // Solar panel Blue 3
 
-	const Vec2 ballBeginSW = Vec2(300, 875); // RED
-	const Vec2 ballEndSW = Vec2(200, 875);	 // RED
+	const Vec2 solarPanelYellow_1 = Vec2(1275, 1800); // Solar panel Yellow 1
+	const Vec2 solarPanelYellow_2 = Vec2(1500, 1800); // Solar panel Yellow 2
+	const Vec2 solarPanelYellow_3 = Vec2(1725, 1800); // Solar panel Yellow 3
 
-	// Distributeur NORTH
-	const Vec2 ballBeginNE = Vec2(2700, 1125); // RED
-	const Vec2 ballEndNE = Vec2(2825, 1125);   // RED
-
-	const Vec2 ballBeginNW = Vec2(2700, 875); // RED
-	const Vec2 ballEndNW = Vec2(2825, 875);	  // RED
-
-	// Distributeur WEST
-	const Vec2 ballWestN = Vec2(1650, 150);		 // RED
-	const Vec2 ballWestCenter = Vec2(1500, 150); // RED
-	const Vec2 ballWestS = Vec2(1350, 150);		 // RED
-
-	// Distributeur EAST
-	const Vec2 ballEastN = Vec2(1650, 1850);	  // RED
-	const Vec2 ballEastCenter = Vec2(1500, 1850); // RED
-	const Vec2 ballEastS = Vec2(1350, 1850);	  // RED
-
+	const Vec2 solarPanelOther_1 = Vec2(2725, 1800); // Solar panel No Team 1
+	const Vec2 solarPanelOther_2 = Vec2(2500, 1800); // Solar panel No Team 2
+	const Vec2 solarPanelOther_3 = Vec2(2275, 1800); // Solar panel No Team 3
 	// ------------------------------------------
-	// Dépose des balles
-	const Vec2 ballBlueBasket = Vec2(200, 1675); // ORANGE
-	const Vec2 ballGreenBasket = Vec2(200, 325); // ORANGE
-
-	const Vec2 ballBlueBasketPlus = Vec2(120, 1675); // ORANGE
-	const Vec2 ballGreenBasketPlus = Vec2(120, 325); // ORANGE
-
-	const Vec2 blueEndPrimary = Vec2(900, 400);	   // BLUE
-	const Vec2 blueEndSecondary = Vec2(1350, 400); // BLUE
-
-	const Vec2 greenEndPrimary = Vec2(900, 1600);	 // GREEN
-	const Vec2 greenEndSecondary = Vec2(1350, 1600); // GREEN
-
-	// ------------------------------------------
-	// Dépose des cakes
-	// Blue B1
-	const Vec2 dropBlue1 = Vec2(180, 1760);
-	const Vec2 dropBlue2 = Vec2(320, 1760);
-	const Vec2 dropBlue3 = Vec2(460, 1760);
-
-	const Vec2 retreatBlue1 = Vec2(180, 1600);
-	const Vec2 retreatBlue2 = Vec2(320, 1600);
-	const Vec2 retreatBlue3 = Vec2(460, 1600);
-
-	// Green V1
-	const Vec2 dropGreen1 = Vec2(180, 280);
-	const Vec2 dropGreen2 = Vec2(320, 280);
-	const Vec2 dropGreen3 = Vec2(460, 280);
-
-	const Vec2 retreatGreen1 = Vec2(180, 400);
-	const Vec2 retreatGreen2 = Vec2(320, 400);
-	const Vec2 retreatGreen3 = Vec2(460, 400);
-
-	// Blue B2
-	const Vec2 dropB2_01 = Vec2(1875, 1775);
-	const Vec2 dropB2_02 = Vec2(1875, 1635);
-	const Vec2 dropB2_03 = Vec2(1875, 1495);
-
-	// Green V2
-	const Vec2 dropV2_01 = Vec2(1875, 225);
-	const Vec2 dropV2_02 = Vec2(1875, 365);
-	const Vec2 dropV2_03 = Vec2(1875, 505);
-
-	// ------------------------------------------
-
+	// Planters
+	const Vec2 planterBlueSouth = Vec2(0, 612);		 // Planter Blue South
+	const Vec2 planterBlueNorth = Vec2(3000, 1388);	 // Planter Blue North
+	const Vec2 planterBlueWest = Vec2(762, 0);		 // Planter Blue West
+	const Vec2 planterYellowSouth = Vec2(0, 1388);	 // Planter Yellow South
+	const Vec2 planterYellowNorth = Vec2(3000, 612); // Planter Yellow North
+	const Vec2 planterYellowWest = Vec2(2238, 0);	 // Planter Yellow West
 }

@@ -336,15 +336,11 @@ void Movement::Calibrate()
 		runSync();
 		moveTo(PolarVec(SIDE_BC, 200).ToSteps());
 		runSync();
-		// was 50
 		moveTo(PolarVec(SIDE_A, 30).ToSteps());
 		runSync();
 		isHome = true;
 		calibrated = true;
 		currentPoint = TEAM_A_HOME;
-		// cherries
-		// rotateTo(SIDE_AB);
-		// runSync();
 	}
 	else if (team == 1)
 	{
@@ -356,17 +352,11 @@ void Movement::Calibrate()
 		runSync();
 		moveTo(PolarVec(SIDE_BC, 200).ToSteps());
 		runSync();
-		// was 50
 		moveTo(PolarVec(SIDE_A, 30).ToSteps());
 		runSync();
 		isHome = true;
 		calibrated = true;
 		currentPoint = TEAM_B_HOME;
-		// cherries
-		// cherries
-
-		// rotateTo(SIDE_AB);
-		// runSync();
 	}
 	ACCEL = MAX_ACCEL;
 	SPEED = MAX_SPEED;
@@ -456,4 +446,11 @@ void Movement::TestBasic()
 	delay(1000);
 	A3.runToNewPosition(-8000);
 	delay(1000);
+}
+
+void Movement::goBack(int distance, bool *lidar)
+{
+	int x = distance + currentPoint.X * cos(1.570796); // 90 degrees in radian
+	int y = distance + currentPoint.Y * sin(1.570796);
+	ExecuteSEMIOFFSET(Point2D(x, y), lidar);
 }

@@ -75,6 +75,7 @@ public:
 	void ExecuteSEMIOFFSET(Point2D point, bool *lidar);
 	void goHome();
 	void goHomeSEMI();
+	void goBack(int distance, bool *lidar);
 	void setCurrentPosition(Point2D point);
 	Point2D getCurrentPoint();
 	void lidarTest(bool *lidar);
