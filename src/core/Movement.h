@@ -58,6 +58,7 @@ public:
 	void rotateTo(float angle);
 	void goToPointRotate();
 	void goToPoinRotateOffset();
+	void goToPoinRotateOffset(int offset);
 	void setRotation(float angle);
 	void setSide(float angle);
 	void setup();
@@ -73,6 +74,8 @@ public:
 	void ExecuteSEMI(Point2D point, bool *lidar);
 	// move to point with rotation and offset
 	void ExecuteSEMIOFFSET(Point2D point, bool *lidar);
+	void ExecuteSEMIOFFSET(Point2D point, int offset, bool *lidar);
+
 	void goHome();
 	void goHomeSEMI();
 	void goBack(int distance, bool *lidar);

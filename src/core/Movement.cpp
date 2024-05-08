@@ -315,6 +315,40 @@ void Movement::goToPoinRotateOffset()
 	Serial.println(currentPoint.Y);
 }
 
+void Movement::goToPoinRotateOffset(int offset)
+{
+	isHome = false;
+	calibrated = false;
+
+	float distance = sqrt(pow(absPoint.X, 2) + pow(absPoint.Y, 2));						 // in mm
+	float angle = 360 - currentSideAngle - (atan2(absPoint.Y, absPoint.X) * 57.2957795); // in degrees
+	angle = normalizeAngle(angle);
+
+	setRotation(angle);
+	doRotation();
+
+	PolarVec vec = PolarVec(currentSideAngle, (distance - offset));
+
+	moveTo(vec.ToSteps());
+
+	while (!HasArrived())
+	{
+		if (*isDetected)
+		{
+			stop();
+		}
+		run();
+	}
+	PolarVec vecOffset = PolarVec(angle + currentSideAngle, (distance - offset));
+	Vec2 point = vecOffset.toVec2();
+	currentPoint = Point2D(point.A + currentPoint.X, point.B + currentPoint.Y);
+
+	Serial.print("currentPoint : ");
+	Serial.print(currentPoint.X);
+	Serial.print(" , ");
+	Serial.println(currentPoint.Y);
+}
+
 void Movement::setSide(float angle)
 {
 	currentSideAngle = angle;
@@ -386,6 +420,12 @@ void Movement::ExecuteSEMIOFFSET(Point2D point, bool *lidar)
 	isDetected = lidar;
 	setPoint(point);
 	goToPoinRotateOffset();
+}
+void Movement::ExecuteSEMIOFFSET(Point2D point, int offset, bool *lidar)
+{
+	isDetected = lidar;
+	setPoint(point);
+	goToPoinRotateOffset(offset);
 }
 
 bool Movement::atHome()
