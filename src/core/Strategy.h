@@ -10,6 +10,7 @@
 #include "core/Actuators.h"
 #include "core/NeoPixel.h"
 #include "core/Sensors.h"
+
 #define HEIGHT 2000 // value in mm
 #define WIDTH 1500	// value in mm
 
@@ -38,14 +39,10 @@ public:
 	void Ready();
 	void setup();
 	void start(bool *lidar);
-	void startDebug(bool *lidar);
-	void startSEMI(bool *lidar);
-	void startSEMIOFFSET(bool *lidar);
 	void stop();
 	void setPoints(Point2D *points, int len);
 	void strat_BLUE(bool *lidar);
 	void strat_YELLOW(bool *lidar);
-
 	void afterCalibration(bool *lidar);
 	void Homologuation(bool *lidar);
 	Point2D getCurrentPoint();
