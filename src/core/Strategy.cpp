@@ -217,9 +217,10 @@ void Strategy::stratB(bool *lidar)
 	Point2D alpha = Point2D(1000, 1300);
 	Point2D beta = Point2D(1000, 700);
 	Point2D delta0 = Point2D(1300, 1600);
-	Point2D delta1 = Point2D(600, 600);
-	Point2D delta2 = Point2D(500, 225);
-	Point2D delta3 = Point2D(1300, 400);
+	Point2D delta1 = Point2D(500, 500);
+	Point2D delta2 = Point2D(600, 225);
+	Point2D delta3 = Point2D(950, 300);
+	Point2D delta4 = Point2D(1300, 400);
 
 	actuators.elevateAll();
 	actuators.releaseAll();
@@ -240,7 +241,10 @@ void Strategy::stratB(bool *lidar)
 	// 4. go to delta 3
 	movement.setSide(SIDE_C);
 	movement.ExecuteSEMI(delta3, lidar);
-	// 5.  go to alpha and push beta with side B
+	// 5. go to delta 4
+	movement.setSide(SIDE_C);
+	movement.ExecuteSEMI(delta4, lidar);
+	// 6.  go to alpha and push beta with side B
 	movement.setSide(SIDE_B);
 	movement.ExecuteSEMI(home_alpha, lidar);
 }

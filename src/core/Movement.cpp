@@ -385,6 +385,7 @@ void Movement::Execute(Point2D point, bool *lidar)
 	isDetected = lidar;
 	setPoint(point);
 	goToPoint();
+	delay(800);
 }
 
 void Movement::ExecuteSEMI(Point2D point, bool *lidar)
@@ -392,6 +393,7 @@ void Movement::ExecuteSEMI(Point2D point, bool *lidar)
 	isDetected = lidar;
 	setPoint(point);
 	goToPointRotate();
+	delay(800);
 }
 
 void Movement::ExecuteSEMIOFFSET(Point2D point, bool *lidar)
