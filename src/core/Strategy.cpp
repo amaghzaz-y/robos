@@ -210,6 +210,38 @@ void Strategy::afterCalibration(bool *lidar)
 	}
 }
 
+void Strategy::stratB(bool *lidar)
+{
+	Point2D home_alpha = Point2D(225, 1775);
+	Point2D home_beta = Point2D(225, 225);
+	Point2D alpha = Point2D(1000, 1300);
+	Point2D beta = Point2D(1000, 700);
+	Point2D delta0 = Point2D(1300, 1600);
+	Point2D delta1 = Point2D(1300, 600);
+	actuators.foldAll();
+	actuators.elevateAll();
+	// 1. go to delta 0
+	movement.setSide(SIDE_A);
+	movement.ExecuteSEMI(delta0, lidar);
+	// 2. go to home_beta and push alpha with side B
+	movement.setSide(SIDE_B);
+	actuators.delevateObject(SIDE_B_ID, 0);
+	actuators.releaseObject(SIDE_B_ID);
+	movement.ExecuteSEMI(home_beta, lidar);
+	// 3. go back
+	movement.goBack(100, lidar);
+	actuators.elevateAll();
+	actuators.foldAll();
+	// 4. go to delta 1
+	movement.setSide(SIDE_CA);
+	movement.ExecuteSEMI(delta1, lidar);
+	// 5.  go to alpha and push beta with side B
+	movement.setSide(SIDE_B);
+	actuators.delevateObject(SIDE_B_ID, 0);
+	actuators.releaseObject(SIDE_B_ID);
+	movement.ExecuteSEMI(home_alpha, lidar);
+}
+
 void Strategy::stratA(bool *lidar)
 {
 	Point2D home_alpha = Point2D(225, 1775);

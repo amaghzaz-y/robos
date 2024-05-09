@@ -25,7 +25,7 @@ void LidarTask(void *pvParameters)
         currentPoint = strategy.getCurrentPoint();
         if (lidar.Task(&currentPoint))
             count++;
-        if (count > 10)
+        if (count > 25)
         {
             lidarStatus = true;
             count = 0;
@@ -55,7 +55,7 @@ void loop()
     strategy.Initiation();
     strategy.Ready();
     ticker.start();
-    strategy.stratA(&lidarStatus);
+    strategy.stratB(&lidarStatus);
     strategy.display.Show("SCORE", "45", "", "");
     while (1)
         // strategy.actuators.funnyAction();
