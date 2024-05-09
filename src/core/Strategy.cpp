@@ -210,7 +210,7 @@ void Strategy::afterCalibration(bool *lidar)
 	}
 }
 
-void Strategy::stratB_BLUE(bool *lidar)
+void Strategy::strat_BLUE(bool *lidar)
 {
 	Point2D home_alpha = Point2D(300, 1700);
 	Point2D home_beta = Point2D(300, 300);
@@ -220,15 +220,16 @@ void Strategy::stratB_BLUE(bool *lidar)
 	Point2D beta = Point2D(1000, 700);
 	Point2D tetha = Point2D(1500, 1500);
 
-	Point2D b0 = Point2D(225, 1850);
-	Point2D b1 = Point2D(850, 1850);
+	Point2D b0 = Point2D(225, 1820);
+	Point2D b1 = Point2D(850, 1820);
 	Point2D b2 = Point2D(850, 1750);
+
 	Point2D delta0 = Point2D(1300, 1600);
 	Point2D delta1 = Point2D(500, 500);
 	Point2D delta2 = Point2D(600, 225);
 	Point2D delta3 = Point2D(950, 300);
 	Point2D delta4 = Point2D(1300, 400);
-	Point2D delta5 = Point2D(1400, 1600);
+	Point2D delta5 = Point2D(1300, 1700);
 
 	actuators.elevateAll();
 	actuators.releaseAll();
@@ -237,7 +238,7 @@ void Strategy::stratB_BLUE(bool *lidar)
 	movement.ExecuteSEMI(b0, lidar);
 	movement.setSide(SIDE_CA);
 	movement.ExecuteSEMI(b1, lidar);
-	movement.setSide(SIDE_AB);
+	movement.setSide(30);
 	movement.ExecuteSEMI(b2, lidar);
 	// 1. go to delta 0
 	movement.setSide(SIDE_A);
@@ -264,6 +265,69 @@ void Strategy::stratB_BLUE(bool *lidar)
 	// 7. go to delta 5
 	movement.setSide(SIDE_CA);
 	movement.ExecuteSEMI(delta5, lidar);
+	// 8.  go to theta and push beta with side B
+	movement.setSide(SIDE_B);
+	movement.ExecuteSEMI(home_theta, lidar);
+}
+
+void Strategy::strat_YELLOW(bool *lidar)
+{
+	Point2D home_alpha = Point2D(300, 1700);
+	Point2D home_beta = Point2D(300, 300);
+	Point2D home_theta = Point2D(2775, 1000);
+
+	Point2D alpha = Point2D(1000, 1300);
+	Point2D beta = Point2D(1000, 700);
+	Point2D tetha = Point2D(1500, 1500);
+
+	Point2D b0 = Point2D(225, 1820);
+	Point2D b1 = Point2D(850, 1820);
+	Point2D b2 = Point2D(850, 1750);
+
+	Point2D delta0 = Point2D(1300, 1600);
+	Point2D delta1 = Point2D(500, 500);
+	Point2D delta2 = Point2D(600, 225);
+	Point2D delta3 = Point2D(950, 300);
+	Point2D delta4 = Point2D(1300, 400);
+	Point2D delta5 = Point2D(1300, 1700);
+
+	actuators.elevateAll();
+	actuators.releaseAll();
+	// turn flags
+	movement.setSide(SIDE_C);
+	movement.ExecuteSEMI(b0, lidar);
+	movement.setSide(SIDE_CA);
+	movement.ExecuteSEMI(b1, lidar);
+	movement.setSide(30);
+	movement.ExecuteSEMI(b2, lidar);
+	// 1. go to delta 0
+	movement.setSide(SIDE_A);
+	movement.ExecuteSEMI(delta0, lidar);
+	// 2. go to home_beta and push alpha with side B
+	actuators.delevateAll();
+	movement.setSide(SIDE_B);
+	movement.ExecuteSEMI(home_beta, lidar);
+	// 3. go to delta 1
+	movement.setSide(SIDE_CA);
+	movement.ExecuteSEMI(delta1, lidar);
+	// 3. go to delta 2
+	movement.setSide(SIDE_A);
+	movement.ExecuteSEMI(delta2, lidar);
+	// 4. go to delta 3
+	movement.setSide(SIDE_C);
+	movement.ExecuteSEMI(delta3, lidar);
+	// 5. go to delta 4
+	movement.setSide(SIDE_C);
+	movement.ExecuteSEMI(delta4, lidar);
+	// 6.  go to alpha and push beta with side B
+	movement.setSide(SIDE_B);
+	movement.ExecuteSEMI(home_alpha, lidar);
+	// 7. go to delta 5
+	movement.setSide(SIDE_CA);
+	movement.ExecuteSEMI(delta5, lidar);
+	// 8.  go to theta and push beta with side B
+	movement.setSide(SIDE_B);
+	movement.ExecuteSEMI(home_theta, lidar);
 }
 
 // void Strategy::stratA(bool *lidar)

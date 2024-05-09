@@ -43,8 +43,9 @@ public:
 	void startSEMIOFFSET(bool *lidar);
 	void stop();
 	void setPoints(Point2D *points, int len);
-	void stratA(bool *lidar);
-	void stratB_BLUE(bool *lidar);
+	void strat_BLUE(bool *lidar);
+	void strat_YELLOW(bool *lidar);
+
 	void afterCalibration(bool *lidar);
 	void Homologuation(bool *lidar);
 	Point2D getCurrentPoint();
