@@ -356,8 +356,8 @@ void Movement::setSide(float angle)
 
 void Movement::Calibrate()
 {
-	ACCEL = MAX_ACCEL / 2;
-	SPEED = MAX_SPEED / 2;
+	ACCEL = MAX_ACCEL / 3;
+	SPEED = MAX_SPEED / 3;
 	moveTo(PolarVec(SIDE_C, 200).ToSteps());
 	runSync();
 	moveTo(PolarVec(SIDE_AB, 115).ToSteps());

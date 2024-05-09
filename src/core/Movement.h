@@ -5,8 +5,8 @@
 #include <types/Point2D.h>
 #include <utils/utils.h>
 #include "utils/PINS.h"
-#define MAX_SPEED 4000
-#define MAX_ACCEL 6000
+#define MAX_SPEED 8000 // 4000
+#define MAX_ACCEL 7000 // 6000
 
 const int SIDE_A = 360;
 const int SIDE_AB = 60;
