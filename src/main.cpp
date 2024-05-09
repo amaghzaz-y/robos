@@ -19,10 +19,21 @@ Ticker ticker(FullStop,
 
 void LidarTask(void *pvParameters)
 {
+    int count = 0;
     for (;;)
     {
         currentPoint = strategy.getCurrentPoint();
-        lidarStatus = lidar.Task(&currentPoint);
+        if (lidar.Task(&currentPoint))
+            count++;
+        if (count > 10)
+        {
+            lidarStatus = true;
+            count = 0;
+        }
+        else
+        {
+            lidarStatus = false;
+        }
         ticker.update();
     }
 }
@@ -44,9 +55,10 @@ void loop()
     strategy.Initiation();
     strategy.Ready();
     ticker.start();
-    strategy.stratA_BLUE(&lidarStatus);
+    strategy.stratA(&lidarStatus);
     strategy.display.Show("SCORE", "45", "", "");
     while (1)
-        strategy.actuators.funnyAction();
+        // strategy.actuators.funnyAction();
+        ;
     ;
 }

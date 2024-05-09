@@ -210,7 +210,7 @@ void Strategy::afterCalibration(bool *lidar)
 	}
 }
 
-void Strategy::stratA_BLUE(bool *lidar)
+void Strategy::stratA(bool *lidar)
 {
 	Point2D home_alpha = Point2D(225, 1775);
 	Point2D home_beta = Point2D(225, 225);
@@ -236,39 +236,19 @@ void Strategy::stratA_BLUE(bool *lidar)
 	movement.ExecuteSEMI(theta, lidar);
 	actuators.pickObject(SIDE_B_ID);
 	actuators.elevateObject(SIDE_B_ID, 3);
-	// 3. go home alpha , drop all
-	movement.setSide(SIDE_AB);
-	movement.ExecuteSEMIOFFSET(home_alpha, 80, lidar);
-	actuators.delevateAll();
-	actuators.releaseAll();
-	actuators.elevateAll();
-	actuators.foldAll();
-	// 4. pick omega
+	// 5. pick beta
 	movement.setSide(SIDE_C);
-	movement.ExecuteSEMIOFFSET(omega, 150, lidar);
 	actuators.delevateObject(SIDE_C_ID, 0);
 	actuators.releaseObject(SIDE_C_ID);
-	movement.ExecuteSEMI(omega, lidar);
+	movement.ExecuteSEMI(beta, lidar);
 	actuators.pickObject(SIDE_C_ID);
 	actuators.elevateObject(SIDE_C_ID, 3);
-	// 5. pick beta
-	movement.setSide(SIDE_B);
-	actuators.delevateObject(SIDE_B_ID, 0);
-	actuators.releaseObject(SIDE_B_ID);
-	movement.ExecuteSEMI(beta, lidar);
-	actuators.pickObject(SIDE_B_ID);
-	actuators.elevateObject(SIDE_B_ID, 3);
 	// 6. go home beta, drop all
-	movement.setSide(SIDE_BC);
+	movement.setSide(SIDE_C);
 	movement.ExecuteSEMIOFFSET(home_beta, 80, lidar);
 	actuators.delevateAll();
 	actuators.releaseAll();
 	actuators.elevateAll();
-	actuators.foldAll();
-	// 7. go base
-	movement.setSide(SIDE_A);
-	movement.ExecuteSEMI(home_theta, lidar);
-	neopixel.changeColor(0);
 }
 
 void Strategy::Homologuation(bool *lidar)

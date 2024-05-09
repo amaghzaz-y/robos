@@ -91,10 +91,6 @@ bool Lidar::Task(Point2D *currentPosition)
 {
 	setCurrentPoint(currentPosition);
 	detect();
-	// if (hasDetected())
-	// {
-	// 	Serial.println("###-DETECTED-###");
-	// }
 	return hasDetected();
 }
 
