@@ -25,7 +25,7 @@ void LidarTask(void *pvParameters)
         currentPoint = strategy.getCurrentPoint();
         if (lidar.Task(&currentPoint))
             count++;
-        if (count > 25)
+        if (count > 15)
         {
             lidarStatus = true;
             count = 0;
@@ -42,7 +42,7 @@ void setup()
 {
     Serial.begin(9600);
     lidar.setup();
-    lidar.setMaxRange(320); // 300
+    lidar.setMaxRange(450); // 300
     lidar.setRadius(360);
     lidar.setAngle(180);
     strategy.setup();

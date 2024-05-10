@@ -9,16 +9,15 @@ Movement::Movement()
 	A2.setEnablePin(PIN_ENABLE);
 	A3 = AccelStepper(1, PIN_M3_STEP, PIN_M3_DIR);
 	A3.setEnablePin(PIN_ENABLE);
-	TEAM_A_HOME = Point2D(INITIAL_X_GREEN, INITIAL_Y_GREEN);
-	TEAM_B_HOME = Point2D(INITIAL_X_BLUE, INITIAL_Y_BLUE);
+	TEAM_BLUE = Point2D(211.50, 1749);
+	TEAM_YELLOW = Point2D(2788.5, 1749);
 	currentRotation = 0.0;
 	targetRotation = 0.0;
 	angleToDo = 0.0;
 	calibrated = false;
 	isHome = false;
-	currentPoint = TEAM_A_HOME;
-	// isDetected = *false;
-	team = 0;
+	currentPoint = TEAM_BLUE;
+	team = 1;
 	currentSideAngle = SIDE_A;
 	Serial.println("Movement :: setup done");
 }
@@ -148,19 +147,28 @@ void Movement::FullStop()
 void Movement::setTeam(int i)
 {
 	team = i;
+
+	if (i == 0)
+	{
+		currentRotation = 60.0;
+	}
+	else if (i == 1)
+	{
+		currentRotation = 0.0;
+	}
 }
 
 void Movement::goHome()
 {
 	if (team == 0)
 	{
-		setPoint(TEAM_A_HOME);
+		setPoint(TEAM_BLUE);
 		goToPoint();
 		isHome = true;
 	}
 	else if (team == 1)
 	{
-		setPoint(TEAM_B_HOME);
+		setPoint(TEAM_YELLOW);
 		goToPoint();
 		isHome = true;
 	}
@@ -171,7 +179,7 @@ void Movement::goHomeSEMI()
 	setSide(SIDE_A);
 	if (team == 0)
 	{
-		setPoint(TEAM_A_HOME);
+		setPoint(TEAM_BLUE);
 		goToPointRotate();
 		setRotation(SIDE_A);
 		runSync();
@@ -179,7 +187,7 @@ void Movement::goHomeSEMI()
 	}
 	else if (team == 1)
 	{
-		setPoint(TEAM_B_HOME);
+		setPoint(TEAM_YELLOW);
 		goToPointRotate();
 		isHome = true;
 	}
@@ -374,7 +382,7 @@ void Movement::Calibrate()
 		runSync();
 		isHome = true;
 		calibrated = true;
-		currentPoint = TEAM_A_HOME;
+		currentPoint = TEAM_YELLOW;
 	}
 	// BLUE
 	if (team == 1)
@@ -391,7 +399,7 @@ void Movement::Calibrate()
 		runSync();
 		isHome = true;
 		calibrated = true;
-		currentPoint = TEAM_B_HOME;
+		currentPoint = TEAM_BLUE;
 	}
 
 	ACCEL = MAX_ACCEL;

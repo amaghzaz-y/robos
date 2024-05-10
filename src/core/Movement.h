@@ -15,12 +15,6 @@ const int SIDE_BC = -180;
 const int SIDE_C = -120;
 const int SIDE_CA = -60;
 
-const float INITIAL_X_GREEN = 211.50; // value in mm
-const float INITIAL_Y_GREEN = 251;	  // mm
-
-const float INITIAL_X_BLUE = 211.50; // value in mm
-const float INITIAL_Y_BLUE = 1749;	 // mm
-
 const float OFFSET_DISTANCE = 35.0; // mm
 
 class Movement
@@ -42,8 +36,8 @@ private:
 	float currentSideAngle;
 	void goToPoint();
 	void stop();
-	Point2D TEAM_A_HOME;
-	Point2D TEAM_B_HOME;
+	Point2D TEAM_BLUE;
+	Point2D TEAM_YELLOW;
 
 public:
 	Movement();

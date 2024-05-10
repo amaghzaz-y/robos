@@ -32,7 +32,6 @@ bool Lidar::inRadius(Vec2 point)
 	{
 		return true;
 	}
-
 	else
 	{
 		return false;
