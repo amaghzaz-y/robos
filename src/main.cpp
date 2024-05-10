@@ -52,11 +52,11 @@ void setup()
 void loop()
 {
     // strategy.testINPUT();
-    strategy.Initiation();
-    strategy.Ready();
-    ticker.start();
-    strategy.start(&lidarStatus);
-    strategy.display.Show("SCORE", "40", "", "");
+    // strategy.Initiation();
+    // strategy.Ready();
+    // ticker.start();
+    strategy.CoupOff();
+    // strategy.display.Show("SCORE", "35", "", "");
     while (1)
         // strategy.actuators.funnyAction();
         ;

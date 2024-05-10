@@ -143,28 +143,39 @@ void Strategy::afterCalibration(bool *lidar)
 
 void Strategy::strat_BLUE(bool *lidar)
 {
+	// homes
 	Point2D home_alpha = Point2D(300, 1700);
 	Point2D home_beta = Point2D(300, 300);
 	Point2D home_theta = Point2D(2775, 1000);
 
+	// flowers
 	Point2D alpha = Point2D(1000, 1300);
 	Point2D beta = Point2D(1000, 700);
 	Point2D tetha = Point2D(1500, 1500);
 
+	// flags checkpoints
 	Point2D b0 = Point2D(225, 1820);
 	Point2D b1 = Point2D(850, 1820);
 	Point2D b2 = Point2D(850, 1750);
 
+	// checkpoints
 	Point2D delta0 = Point2D(1300, 1600);
 	Point2D delta1 = Point2D(500, 500);
 	Point2D delta2 = Point2D(600, 225);
 	Point2D delta3 = Point2D(1000, 225);
 	Point2D delta4 = Point2D(1300, 400);
-	Point2D delta5 = Point2D(1300, 1600);
+	Point2D delta5 = Point2D(1250, 1650);
 
 	actuators.elevateAll();
 	actuators.releaseAll();
 
+	// turn flags
+	movement.setSide(SIDE_C);
+	movement.ExecuteSEMI(b0, lidar);
+	movement.setSide(SIDE_CA);
+	movement.ExecuteSEMI(b1, lidar);
+	movement.setSide(30);
+	movement.ExecuteSEMI(b2, lidar);
 	// 1. go to delta 0
 	movement.setSide(SIDE_A);
 	movement.ExecuteSEMI(delta0, lidar);
@@ -187,43 +198,49 @@ void Strategy::strat_BLUE(bool *lidar)
 	// 6.  push beta to home alpha
 	movement.setSide(SIDE_B);
 	movement.ExecuteSEMI(home_alpha, lidar);
-	// 7. go to b0
-	movement.setSide(SIDE_C);
-	movement.ExecuteSEMI(b0, lidar);
-	// 8. go to b1
-	movement.setSide(SIDE_C);
-	movement.ExecuteSEMI(b1, lidar);
-	// 9. go to delta5
-	movement.setSide(SIDE_C);
+	// 7. go to delta5
+	movement.setSide(SIDE_AB);
 	movement.ExecuteSEMI(delta5, lidar);
-	// 10. push theta to home theta
+	// 8. push theta to home theta
 	movement.setSide(SIDE_B);
 	movement.ExecuteSEMI(home_theta, lidar);
 }
 
 void Strategy::strat_YELLOW(bool *lidar)
 {
+	// homes
 	Point2D home_alpha = Point2D(3000 - 300, 1700);
 	Point2D home_beta = Point2D(3000 - 300, 300);
-	Point2D home_theta = Point2D(2775, 1000);
+	Point2D home_theta = Point2D(3000 - 2775, 1000);
 
+	// flowers
 	Point2D alpha = Point2D(3000 - 1000, 1300);
 	Point2D beta = Point2D(3000 - 1000, 700);
 	Point2D tetha = Point2D(3000 - 1500, 1500);
 
+	// flags checkpoints
 	Point2D b0 = Point2D(3000 - 225, 1820);
 	Point2D b1 = Point2D(3000 - 850, 1820);
 	Point2D b2 = Point2D(3000 - 850, 1750);
 
+	// checkpoints
 	Point2D delta0 = Point2D(3000 - 1300, 1600);
 	Point2D delta1 = Point2D(3000 - 500, 500);
 	Point2D delta2 = Point2D(3000 - 600, 225);
 	Point2D delta3 = Point2D(3000 - 1000, 225);
 	Point2D delta4 = Point2D(3000 - 1300, 400);
-	Point2D delta5 = Point2D(3000 - 1300, 1600);
+	Point2D delta5 = Point2D(3000 - 1250, 1650);
 
 	actuators.elevateAll();
 	actuators.releaseAll();
+	// turn flags
+	movement.setSide(SIDE_C);
+	movement.ExecuteSEMI(b0, lidar);
+	movement.setSide(SIDE_BC);
+	movement.ExecuteSEMI(b1, lidar);
+	movement.setSide(30);
+	movement.setSide(SIDE_B);
+	movement.ExecuteSEMI(b2, lidar);
 
 	// 1. go to delta 0
 	movement.setSide(SIDE_A);
@@ -247,14 +264,8 @@ void Strategy::strat_YELLOW(bool *lidar)
 	// 6.  push beta to home alpha
 	movement.setSide(SIDE_B);
 	movement.ExecuteSEMI(home_alpha, lidar);
-	// 7. go to b0
-	movement.setSide(SIDE_C);
-	movement.ExecuteSEMI(b0, lidar);
-	// 8. go to b1
-	movement.setSide(SIDE_C);
-	movement.ExecuteSEMI(b1, lidar);
 	// 9. go to delta5
-	movement.setSide(SIDE_C);
+	movement.setSide(SIDE_CA);
 	movement.ExecuteSEMI(delta5, lidar);
 	// 10. push theta to home theta
 	movement.setSide(SIDE_B);
@@ -271,6 +282,111 @@ void Strategy::Homologuation(bool *lidar)
 		movement.setSide(SIDE_A);
 		movement.ExecuteSEMI(middle, lidar);
 		movement.ExecuteSEMI(home2, lidar);
+	}
+}
+
+void Strategy::CoupOff()
+{
+	int time_elapsed = 0;
+	actuators.elevateAll();
+	time_elapsed = millis() - time_elapsed;
+	// 10 start , 17 change, 23, 29, 38 laser, 42 pause, 46, dance, 64 stop
+	neopixel.fire2012();
+	delay(10000);
+	while (time_elapsed < 17 * 1000)
+	{
+		time_elapsed = millis() - time_elapsed;
+		neopixel.changeColor(0);
+
+		actuators.delevateAll();
+		actuators.foldAll();
+		movement.rotateTo(45.0);
+		movement.runSync();
+		neopixel.fire2012();
+		movement.rotateTo(-45.0);
+		movement.runSync();
+		actuators.elevateAll();
+		actuators.releaseAll();
+	}
+
+	neopixel.changeColor(2);
+	while (time_elapsed < 23 * 1000)
+	{
+		time_elapsed = millis() - time_elapsed;
+		movement.rotateTo(20);
+		movement.runSync();
+	}
+
+	neopixel.changeColor(0);
+	while (time_elapsed < 29 * 1000)
+	{
+		time_elapsed = millis() - time_elapsed;
+		actuators.delevateAll();
+		actuators.foldAll();
+		neopixel.changeColor(0);
+		movement.rotateTo(10.0);
+		movement.runSync();
+		actuators.elevateAll();
+		actuators.releaseAll();
+		neopixel.changeColor(3);
+		delay(500);
+	}
+	neopixel.pride();
+	while (time_elapsed < 38 * 1000)
+	{
+		time_elapsed = millis() - time_elapsed;
+		actuators.delevateObject(SIDE_A_ID, 1);
+		actuators.delevateObject(SIDE_B_ID, 1);
+		actuators.delevateObject(SIDE_C_ID, 1);
+		delay(500);
+		actuators.delevateObject(SIDE_A_ID, 1);
+		actuators.delevateObject(SIDE_B_ID, 1);
+		actuators.delevateObject(SIDE_C_ID, 1);
+		delay(500);
+		actuators.elevateObject(SIDE_A_ID, 2);
+		actuators.elevateObject(SIDE_B_ID, 2);
+		actuators.elevateObject(SIDE_C_ID, 2);
+		delay(500);
+		actuators.elevateObject(SIDE_A_ID, 3);
+		actuators.elevateObject(SIDE_B_ID, 3);
+		actuators.elevateObject(SIDE_C_ID, 3);
+	}
+
+	neopixel.fire2012();
+	while (time_elapsed < 42 * 1000)
+	{
+		time_elapsed = millis() - time_elapsed;
+	}
+	neopixel.pride();
+	while (time_elapsed < 46 * 1000)
+	{
+		time_elapsed = millis() - time_elapsed;
+		actuators.elevateObject(SIDE_A_ID, 3);
+		actuators.elevateObject(SIDE_B_ID, 3);
+		actuators.elevateObject(SIDE_C_ID, 3);
+		movement.rotateTo(30);
+		movement.runSync();
+		actuators.delevateObject(SIDE_A_ID, 1);
+		actuators.delevateObject(SIDE_B_ID, 2);
+		actuators.delevateObject(SIDE_C_ID, 1);
+		movement.rotateTo(30);
+		movement.runSync();
+	}
+	while (time_elapsed < 64 * 1000)
+	{
+		time_elapsed = millis() - time_elapsed;
+		actuators.elevateObject(SIDE_A_ID, 3);
+		actuators.elevateObject(SIDE_B_ID, 3);
+		actuators.elevateObject(SIDE_C_ID, 3);
+		movement.rotateTo(30);
+		movement.runSync();
+		neopixel.changeColor(1);
+		actuators.delevateObject(SIDE_A_ID, 1);
+		actuators.delevateObject(SIDE_B_ID, 2);
+		actuators.delevateObject(SIDE_C_ID, 1);
+		movement.rotateTo(30);
+		movement.runSync();
+		neopixel.changeColor(2);
 	}
 }
 

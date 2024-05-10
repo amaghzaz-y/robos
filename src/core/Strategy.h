@@ -43,6 +43,7 @@ public:
 	void setPoints(Point2D *points, int len);
 	void strat_BLUE(bool *lidar);
 	void strat_YELLOW(bool *lidar);
+	void CoupOff();
 	void afterCalibration(bool *lidar);
 	void Homologuation(bool *lidar);
 	Point2D getCurrentPoint();

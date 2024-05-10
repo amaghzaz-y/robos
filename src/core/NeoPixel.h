@@ -14,4 +14,6 @@ public:
 	CRGB leds[NUM_LEDS];
 	void setup();
 	void changeColor(int color);
+	void fire2012();
+	void pride();
 };
