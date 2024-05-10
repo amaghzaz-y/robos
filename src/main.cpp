@@ -51,14 +51,19 @@ void setup()
 
 void loop()
 {
-    // strategy.testINPUT();
-    // strategy.Initiation();
-    // strategy.Ready();
-    // ticker.start();
-    strategy.CoupOff();
-    // strategy.display.Show("SCORE", "35", "", "");
+    strategy.Initiation();
+    strategy.Ready();
+    ticker.start();
+    strategy.display.Show("SCORE", "35", "", "");
+    strategy.start(&lidarStatus);
+    strategy.display.Show("SCORE", "35", "", "");
     while (1)
-        // strategy.actuators.funnyAction();
-        ;
-    ;
+    {
+        strategy.neopixel.pride();
+        delay(1000);
+        strategy.neopixel.changeColor(0);
+        delay(1000);
+        strategy.neopixel.changeColor(3);
+        delay(1000);
+    }
 }
