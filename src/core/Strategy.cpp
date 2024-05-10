@@ -36,8 +36,8 @@ void Strategy::teamSelection()
 {
 	if (digitalRead(TEAM_PIN) == 0)
 	{
-		movement.setTeam(0);
-		team = 0;
+		movement.setTeam(1);
+		team = 1;
 		display.Show("TEAM", "YELLOW", "", "");
 		neopixel.changeColor(1);
 	}
@@ -162,7 +162,7 @@ void Strategy::strat_BLUE(bool *lidar)
 	Point2D delta5 = Point2D(1300, 1700);
 
 	actuators.elevateAll();
-	actuators.releaseAll();
+	actuators.foldAll();
 	// turn flags
 	movement.setSide(SIDE_C);
 	movement.ExecuteSEMI(b0, lidar);
@@ -174,7 +174,8 @@ void Strategy::strat_BLUE(bool *lidar)
 	movement.setSide(SIDE_A);
 	movement.ExecuteSEMI(delta0, lidar);
 	// 2. go to home_beta and push alpha with side B
-	actuators.delevateAll();
+	actuators.delevateObject(SIDE_B, 0);
+	actuators.releaseObject(SIDE_B);
 	movement.setSide(SIDE_B);
 	movement.ExecuteSEMI(home_beta, lidar);
 	// 3. go to delta 1
@@ -202,24 +203,24 @@ void Strategy::strat_BLUE(bool *lidar)
 
 void Strategy::strat_YELLOW(bool *lidar)
 {
-	Point2D home_alpha = Point2D(300, 300);
-	Point2D home_beta = Point2D(300, 1700);
-	Point2D home_theta = Point2D(2775, 1000);
+	Point2D home_alpha = Point2D(2700, 1700);
+	Point2D home_beta = Point2D(2700, 300);
+	Point2D home_theta = Point2D(225, 1000);
 
-	Point2D alpha = Point2D(1000, 700);
-	Point2D beta = Point2D(1000, 1300);
-	Point2D tetha = Point2D(1500, 500);
+	Point2D alpha = Point2D(2000, 1300);
+	Point2D beta = Point2D(2000, 700);
+	Point2D tetha = Point2D(1500, 1500);
 
-	Point2D b0 = Point2D(225, 180);
-	Point2D b1 = Point2D(850, 180);
-	Point2D b2 = Point2D(850, 250);
+	Point2D b0 = Point2D(2775, 1820);
+	Point2D b1 = Point2D(2150, 1820);
+	Point2D b2 = Point2D(2150, 1750);
 
-	Point2D delta0 = Point2D(1300, 400);
-	Point2D delta1 = Point2D(500, 1500);
-	Point2D delta2 = Point2D(600, 1775);
-	Point2D delta3 = Point2D(1000, 1775);
-	Point2D delta4 = Point2D(1300, 1600);
-	Point2D delta5 = Point2D(1300, 300);
+	Point2D delta0 = Point2D(1700, 1600);
+	Point2D delta1 = Point2D(2500, 500);
+	Point2D delta2 = Point2D(2400, 225);
+	Point2D delta3 = Point2D(2000, 225);
+	Point2D delta4 = Point2D(1700, 400);
+	Point2D delta5 = Point2D(1700, 1700);
 
 	actuators.elevateAll();
 	actuators.releaseAll();
@@ -228,7 +229,7 @@ void Strategy::strat_YELLOW(bool *lidar)
 	movement.ExecuteSEMI(b0, lidar);
 	movement.setSide(SIDE_CA);
 	movement.ExecuteSEMI(b1, lidar);
-	movement.setSide(30);
+	movement.setSide(-30);
 	movement.ExecuteSEMI(b2, lidar);
 	// 1. go to delta 0
 	movement.setSide(SIDE_A);

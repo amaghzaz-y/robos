@@ -358,19 +358,42 @@ void Movement::Calibrate()
 {
 	ACCEL = MAX_ACCEL / 3;
 	SPEED = MAX_SPEED / 3;
-	moveTo(PolarVec(SIDE_C, 200).ToSteps());
-	runSync();
-	moveTo(PolarVec(SIDE_AB, 115).ToSteps());
-	runSync();
-	rotateTo(-30.0);
-	runSync();
-	moveTo(PolarVec(SIDE_BC, 200).ToSteps());
-	runSync();
-	moveTo(PolarVec(SIDE_A, 30).ToSteps());
-	runSync();
-	isHome = true;
-	calibrated = true;
-	currentPoint = TEAM_B_HOME;
+	// YELLOW
+	if (team == 0)
+	{
+		Serial.println("calibrating for team 0");
+		moveTo(PolarVec(SIDE_C, 200).ToSteps());
+		runSync();
+		moveTo(PolarVec(SIDE_AB, 115).ToSteps());
+		runSync();
+		rotateTo(30.0);
+		runSync();
+		moveTo(PolarVec(SIDE_CA, 200).ToSteps());
+		runSync();
+		moveTo(PolarVec(SIDE_B, 30).ToSteps());
+		runSync();
+		isHome = true;
+		calibrated = true;
+		currentPoint = TEAM_A_HOME;
+	}
+	// BLUE
+	if (team == 1)
+	{
+		moveTo(PolarVec(SIDE_C, 200).ToSteps());
+		runSync();
+		moveTo(PolarVec(SIDE_AB, 115).ToSteps());
+		runSync();
+		rotateTo(-30.0);
+		runSync();
+		moveTo(PolarVec(SIDE_BC, 200).ToSteps());
+		runSync();
+		moveTo(PolarVec(SIDE_A, 30).ToSteps());
+		runSync();
+		isHome = true;
+		calibrated = true;
+		currentPoint = TEAM_B_HOME;
+	}
+
 	ACCEL = MAX_ACCEL;
 	SPEED = MAX_SPEED;
 }
