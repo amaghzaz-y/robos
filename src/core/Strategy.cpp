@@ -291,7 +291,12 @@ void Strategy::CoupOff()
 	actuators.elevateAll();
 	time_elapsed = millis() - time_elapsed;
 	// 10 start , 17 change, 23, 29, 38 laser, 42 pause, 46, dance, 64 stop
-	neopixel.fire2012();
+	while (1)
+	{
+		if (digitalRead(REED_PIN) == 1)
+			break;
+	}
+	neopixel.pride();
 	delay(10000);
 	while (time_elapsed < 17 * 1000)
 	{
@@ -302,11 +307,12 @@ void Strategy::CoupOff()
 		actuators.foldAll();
 		movement.rotateTo(45.0);
 		movement.runSync();
-		neopixel.fire2012();
+		neopixel.pride();
 		movement.rotateTo(-45.0);
 		movement.runSync();
 		actuators.elevateAll();
 		actuators.releaseAll();
+		delay(500);
 	}
 
 	neopixel.changeColor(2);
@@ -324,7 +330,7 @@ void Strategy::CoupOff()
 		actuators.delevateAll();
 		actuators.foldAll();
 		neopixel.changeColor(0);
-		movement.rotateTo(10.0);
+		movement.rotateTo(20.0);
 		movement.runSync();
 		actuators.elevateAll();
 		actuators.releaseAll();
@@ -350,13 +356,22 @@ void Strategy::CoupOff()
 		actuators.elevateObject(SIDE_A_ID, 3);
 		actuators.elevateObject(SIDE_B_ID, 3);
 		actuators.elevateObject(SIDE_C_ID, 3);
+		movement.setRotation(280);
+		movement.runSync();
 	}
 
-	neopixel.fire2012();
 	while (time_elapsed < 42 * 1000)
 	{
 		time_elapsed = millis() - time_elapsed;
+		movement.rotateTo(270);
+		movement.runSync();
+		neopixel.changeColor(0);
+		time_elapsed = millis() - time_elapsed;
+		movement.rotateTo(-270);
+		movement.runSync();
+		neopixel.pride();
 	}
+
 	neopixel.pride();
 	while (time_elapsed < 46 * 1000)
 	{
@@ -364,12 +379,16 @@ void Strategy::CoupOff()
 		actuators.elevateObject(SIDE_A_ID, 3);
 		actuators.elevateObject(SIDE_B_ID, 3);
 		actuators.elevateObject(SIDE_C_ID, 3);
+		neopixel.changeColor(1);
+		movement.rotateTo(30);
+		movement.runSync();
 		movement.rotateTo(30);
 		movement.runSync();
 		actuators.delevateObject(SIDE_A_ID, 1);
 		actuators.delevateObject(SIDE_B_ID, 2);
 		actuators.delevateObject(SIDE_C_ID, 1);
-		movement.rotateTo(30);
+		neopixel.pride();
+		movement.rotateTo(270);
 		movement.runSync();
 	}
 	while (time_elapsed < 64 * 1000)
@@ -378,15 +397,15 @@ void Strategy::CoupOff()
 		actuators.elevateObject(SIDE_A_ID, 3);
 		actuators.elevateObject(SIDE_B_ID, 3);
 		actuators.elevateObject(SIDE_C_ID, 3);
-		movement.rotateTo(30);
+		movement.rotateTo(360);
 		movement.runSync();
 		neopixel.changeColor(1);
 		actuators.delevateObject(SIDE_A_ID, 1);
 		actuators.delevateObject(SIDE_B_ID, 2);
 		actuators.delevateObject(SIDE_C_ID, 1);
-		movement.rotateTo(30);
+		movement.rotateTo(-360);
 		movement.runSync();
-		neopixel.changeColor(2);
+		neopixel.pride();
 	}
 }
 
