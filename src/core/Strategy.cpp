@@ -8,10 +8,10 @@ void Strategy::setup()
 	Serial.println("STRATEGY :: SETUP");
 	currentInstruction = 0;
 	display.setup();
-	movement.setup();
-	actuators.setup();
-	neopixel.setup();
-	sensors.setup();
+	// movement.setup();
+	// actuators.setup();
+	// neopixel.setup();
+	// sensors.setup();
 	pinMode(INIT_PIN, INPUT_PULLUP);
 	pinMode(REED_PIN, INPUT_PULLUP);
 	pinMode(TEAM_PIN, INPUT_PULLUP);
@@ -40,14 +40,14 @@ void Strategy::teamSelection()
 		movement.setTeam(0);
 		team = 0;
 		display.Show("TEAM", "YELLOW", "", "");
-		neopixel.changeColor(1);
+		// neopixel.changeColor(1);
 	}
 	if (digitalRead(TEAM_PIN) == 1)
 	{
 		movement.setTeam(1);
 		team = 1;
 		display.Show("TEAM", "BLUE", "", "");
-		neopixel.changeColor(2);
+		// neopixel.changeColor(2);
 	}
 }
 
@@ -69,7 +69,7 @@ void Strategy::stop()
 	Serial.println("FULL STOP IS INITIATED");
 	// display.Show("FULL", "STOP", "FULL", "STOP");
 	movement.FullStop();
-	neopixel.changeColor(3);
+	// neopixel.changeColor(3);
 	Serial.println("FULL STOP HAS BEEN COMPLETE");
 	// display.Show("SCORE:", "45", "SCORE:", "45");
 }
@@ -87,7 +87,7 @@ void Strategy::Ready()
 	if (digitalRead(REED_PIN) == 1)
 	{
 		Serial.println("GOOOOOO");
-		neopixel.changeColor(0);
+		// neopixel.changeColor(0);
 	}
 	// Serial.println("ready");
 }
@@ -296,18 +296,18 @@ void Strategy::CoupOff()
 		if (digitalRead(REED_PIN) == 1)
 			break;
 	}
-	neopixel.pride();
+	// neopixel.pride();
 	delay(10000);
 	while (time_elapsed < 17 * 1000)
 	{
 		time_elapsed = millis() - time_elapsed;
-		neopixel.changeColor(0);
+		// neopixel.changeColor(0);
 
 		actuators.delevateAll();
 		actuators.foldAll();
 		movement.rotateTo(45.0);
 		movement.runSync();
-		neopixel.pride();
+		// neopixel.pride();
 		movement.rotateTo(-45.0);
 		movement.runSync();
 		actuators.elevateAll();
@@ -315,7 +315,7 @@ void Strategy::CoupOff()
 		delay(500);
 	}
 
-	neopixel.changeColor(2);
+	// neopixel.changeColor(2);
 	while (time_elapsed < 23 * 1000)
 	{
 		time_elapsed = millis() - time_elapsed;
@@ -323,21 +323,21 @@ void Strategy::CoupOff()
 		movement.runSync();
 	}
 
-	neopixel.changeColor(0);
+	// neopixel.changeColor(0);
 	while (time_elapsed < 29 * 1000)
 	{
 		time_elapsed = millis() - time_elapsed;
 		actuators.delevateAll();
 		actuators.foldAll();
-		neopixel.changeColor(0);
+		// neopixel.changeColor(0);
 		movement.rotateTo(20.0);
 		movement.runSync();
 		actuators.elevateAll();
 		actuators.releaseAll();
-		neopixel.changeColor(3);
+		// neopixel.changeColor(3);
 		delay(500);
 	}
-	neopixel.pride();
+	// neopixel.pride();
 	while (time_elapsed < 38 * 1000)
 	{
 		time_elapsed = millis() - time_elapsed;
@@ -365,21 +365,21 @@ void Strategy::CoupOff()
 		time_elapsed = millis() - time_elapsed;
 		movement.rotateTo(270);
 		movement.runSync();
-		neopixel.changeColor(0);
+		// neopixel.changeColor(0);
 		time_elapsed = millis() - time_elapsed;
 		movement.rotateTo(-270);
 		movement.runSync();
-		neopixel.pride();
+		// neopixel.pride();
 	}
 
-	neopixel.pride();
+	// neopixel.pride();
 	while (time_elapsed < 46 * 1000)
 	{
 		time_elapsed = millis() - time_elapsed;
 		actuators.elevateObject(SIDE_A_ID, 3);
 		actuators.elevateObject(SIDE_B_ID, 3);
 		actuators.elevateObject(SIDE_C_ID, 3);
-		neopixel.changeColor(1);
+		// neopixel.changeColor(1);
 		movement.rotateTo(30);
 		movement.runSync();
 		movement.rotateTo(30);
@@ -387,7 +387,7 @@ void Strategy::CoupOff()
 		actuators.delevateObject(SIDE_A_ID, 1);
 		actuators.delevateObject(SIDE_B_ID, 2);
 		actuators.delevateObject(SIDE_C_ID, 1);
-		neopixel.pride();
+		// neopixel.pride();
 		movement.rotateTo(270);
 		movement.runSync();
 	}
@@ -399,13 +399,13 @@ void Strategy::CoupOff()
 		actuators.elevateObject(SIDE_C_ID, 3);
 		movement.rotateTo(360);
 		movement.runSync();
-		neopixel.changeColor(1);
+		// neopixel.changeColor(1);
 		actuators.delevateObject(SIDE_A_ID, 1);
 		actuators.delevateObject(SIDE_B_ID, 2);
 		actuators.delevateObject(SIDE_C_ID, 1);
 		movement.rotateTo(-360);
 		movement.runSync();
-		neopixel.pride();
+		// neopixel.pride();
 	}
 }
 

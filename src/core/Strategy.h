@@ -33,7 +33,7 @@ public:
 	Movement movement;
 	Actuators actuators;
 	Display display;
-	NeoPixel neopixel;
+	// NeoPixel neopixel;
 	Sensors sensors;
 	void Initiation();
 	void Ready();
