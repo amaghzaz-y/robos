@@ -24,7 +24,7 @@ void Strategy::init()
 	{
 		Serial.println("Starting Calibration");
 		display.Show("STARTING", "CALIBRATION", "", "");
-		actuators.releaseAll();
+		// actuators.releaseAll();
 		movement.Calibrate();
 	}
 	else
@@ -112,20 +112,20 @@ void Strategy::setPoints(Point2D *p, int len)
 
 void Strategy::Initiation()
 {
-	while (!movement.isCalibrated() || !movement.atHome())
-	{
-		init();
-		teamSelection();
-	}
+	// while (!movement.isCalibrated() || !movement.atHome())
+	// {
+	init();
+	teamSelection();
+	// }
 }
 
-void Strategy::dropAllCherries()
-{
-	actuators.dropCherryStream();
-	delay(2000);
-	movement.rotateTo(SIDE_CA);
-	movement.runSync();
-}
+// void Strategy::dropAllCherries()
+// {
+// 	actuators.dropCherryStream();
+// 	delay(2000);
+// 	movement.rotateTo(SIDE_CA);
+// 	movement.runSync();
+// }
 
 void Strategy::afterCalibration(bool *lidar)
 {

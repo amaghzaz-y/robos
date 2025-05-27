@@ -38,26 +38,26 @@ const int SIDE_C_ID = 2;
 class Actuators
 {
 private:
-	Adafruit_PWMServoDriver servoDriver;
 	bool side_A_full;
 	bool side_B_full;
 	bool side_C_full;
 
 public:
+	Adafruit_PWMServoDriver servoDriver;
 	void setup();
 	void pickObject(int SIDE);
 	void releaseObject(int SIDE);
 	bool isObjectPicked(int SIDE);
 	void elevateObject(int SIDE, int LEVEL);
 	void delevateObject(int SIDE, int LEVEL);
-	void delevateAll();
-	void elevateAll();
+	// void delevateAll();
+	// void elevateAll();
 	void performTEST();
-	void foldAll();
-	void releaseAll();
-	void initCook();
-	void normalize();
-	void dropCherry();
-	void funnyAction();
-	void dropCherryStream();
+	// void foldAll();
+	// void releaseAll();
+	// void initCook();
+	// void normalize();
+	// void dropCherry();
+	// void funnyAction();
+	// void dropCherryStream();
 };
