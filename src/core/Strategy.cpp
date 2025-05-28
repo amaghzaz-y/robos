@@ -23,10 +23,6 @@ void Strategy::init()
 	if (digitalRead(INIT_PIN) == 0)
 	{
 		Serial.println("Starting Calibration");
-		// display.Show("STARTING", "CALIBRATION", "", "");
-		actuators.releaseAll();
-		actuators.foldAll();
-		// movement.Calibrate();
 	}
 	else
 	{
@@ -120,14 +116,6 @@ void Strategy::Initiation()
 	}
 }
 
-// void Strategy::dropAllCherries()
-// {
-// 	actuators.dropCherryStream();
-// 	delay(2000);
-// 	movement.rotateTo(SIDE_CA);
-// 	movement.runSync();
-// }
-
 void Strategy::afterCalibration(bool *lidar)
 {
 	if (team == 0)
@@ -181,7 +169,7 @@ void Strategy::strat_BLUE(bool *lidar)
 	movement.setSide(SIDE_A);
 	movement.ExecuteSEMI(delta0, lidar);
 	// 2. push alpha to home beta
-	actuators.delevateObject(SIDE_B_ID, 0);
+	// actuators.delevateObject(SIDE_B_ID, 0);
 	movement.setSide(SIDE_B);
 	movement.ExecuteSEMI(home_beta, lidar);
 	// 3. go to delta 1
@@ -264,129 +252,6 @@ void Strategy::Homologuation(bool *lidar)
 		movement.setSide(SIDE_A);
 		movement.ExecuteSEMI(middle, lidar);
 		movement.ExecuteSEMI(home2, lidar);
-	}
-}
-
-void Strategy::CoupOff()
-{
-	int time_elapsed = 0;
-	// actuators.elevateAll();
-	time_elapsed = millis() - time_elapsed;
-	// 10 start , 17 change, 23, 29, 38 laser, 42 pause, 46, dance, 64 stop
-	while (1)
-	{
-		if (digitalRead(REED_PIN) == 1)
-			break;
-	}
-	// neopixel.pride();
-	delay(10000);
-	while (time_elapsed < 17 * 1000)
-	{
-		time_elapsed = millis() - time_elapsed;
-		// neopixel.changeColor(0);
-		// actuators.delevateAll();
-		// actuators.foldAll();
-		movement.rotateTo(45.0);
-		movement.runSync();
-		// neopixel.pride();
-		movement.rotateTo(-45.0);
-		movement.runSync();
-		// actuators.elevateAll();
-		// actuators.releaseAll();
-		delay(500);
-	}
-
-	// neopixel.changeColor(2);
-	while (time_elapsed < 23 * 1000)
-	{
-		time_elapsed = millis() - time_elapsed;
-		movement.rotateTo(20);
-		movement.runSync();
-	}
-
-	// neopixel.changeColor(0);
-	while (time_elapsed < 29 * 1000)
-	{
-		time_elapsed = millis() - time_elapsed;
-		// actuators.delevateAll();
-		// actuators.foldAll();
-		// neopixel.changeColor(0);
-		movement.rotateTo(20.0);
-		movement.runSync();
-		// actuators.elevateAll();
-		// actuators.releaseAll();
-		// neopixel.changeColor(3);
-		delay(500);
-	}
-	// neopixel.pride();
-	while (time_elapsed < 38 * 1000)
-	{
-		time_elapsed = millis() - time_elapsed;
-		actuators.delevateObject(SIDE_A_ID, 1);
-		actuators.delevateObject(SIDE_B_ID, 1);
-		actuators.delevateObject(SIDE_C_ID, 1);
-		delay(500);
-		actuators.delevateObject(SIDE_A_ID, 1);
-		actuators.delevateObject(SIDE_B_ID, 1);
-		actuators.delevateObject(SIDE_C_ID, 1);
-		delay(500);
-		actuators.elevateObject(SIDE_A_ID, 2);
-		actuators.elevateObject(SIDE_B_ID, 2);
-		actuators.elevateObject(SIDE_C_ID, 2);
-		delay(500);
-		actuators.elevateObject(SIDE_A_ID, 3);
-		actuators.elevateObject(SIDE_B_ID, 3);
-		actuators.elevateObject(SIDE_C_ID, 3);
-		movement.setRotation(280);
-		movement.runSync();
-	}
-
-	while (time_elapsed < 42 * 1000)
-	{
-		time_elapsed = millis() - time_elapsed;
-		movement.rotateTo(270);
-		movement.runSync();
-		// neopixel.changeColor(0);
-		time_elapsed = millis() - time_elapsed;
-		movement.rotateTo(-270);
-		movement.runSync();
-		// neopixel.pride();
-	}
-
-	// neopixel.pride();
-	while (time_elapsed < 46 * 1000)
-	{
-		time_elapsed = millis() - time_elapsed;
-		actuators.elevateObject(SIDE_A_ID, 3);
-		actuators.elevateObject(SIDE_B_ID, 3);
-		actuators.elevateObject(SIDE_C_ID, 3);
-		// neopixel.changeColor(1);
-		movement.rotateTo(30);
-		movement.runSync();
-		movement.rotateTo(30);
-		movement.runSync();
-		actuators.delevateObject(SIDE_A_ID, 1);
-		actuators.delevateObject(SIDE_B_ID, 2);
-		actuators.delevateObject(SIDE_C_ID, 1);
-		// neopixel.pride();
-		movement.rotateTo(270);
-		movement.runSync();
-	}
-	while (time_elapsed < 64 * 1000)
-	{
-		time_elapsed = millis() - time_elapsed;
-		actuators.elevateObject(SIDE_A_ID, 3);
-		actuators.elevateObject(SIDE_B_ID, 3);
-		actuators.elevateObject(SIDE_C_ID, 3);
-		movement.rotateTo(360);
-		movement.runSync();
-		// neopixel.changeColor(1);
-		actuators.delevateObject(SIDE_A_ID, 1);
-		actuators.delevateObject(SIDE_B_ID, 2);
-		actuators.delevateObject(SIDE_C_ID, 1);
-		movement.rotateTo(-360);
-		movement.runSync();
-		// neopixel.pride();
 	}
 }
 

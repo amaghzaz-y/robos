@@ -3,6 +3,7 @@
 #include <types/PolarVec.h>
 #include <types/Point2D.h>
 #include <utils/PINS.h>
+
 #define LIDAR_MOTOR_SPEED 160
 #define X_RANGE_MAX 1500
 #define Y_RANGE_MAX 2000

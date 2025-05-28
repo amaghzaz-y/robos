@@ -8,6 +8,7 @@ Strategy strategy;
 Lidar lidar;
 
 bool lidarStatus = false;
+
 Point2D currentPoint = Point2D(0, 0);
 
 Ticker ticker([]
@@ -60,5 +61,5 @@ void loop()
     delay(5000);
     // delay(5000);
     // ticker.start();
-    // strategy.start(&lidarStatus);
+    strategy.start(&lidarStatus);
 }

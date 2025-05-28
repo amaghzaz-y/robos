@@ -1,390 +1,111 @@
 #include <core/Actuators.h>
 
-void Actuators::pickObject(int SIDE)
-{
-	if (SIDE == SIDE_A_ID)
-	{
-		servoDriver.writeMicroseconds(SERVO_SIDE_A_L, FOLD_L);
-		servoDriver.writeMicroseconds(SERVO_SIDE_A_R, FOLD_R);
-		side_A_full = true;
-	}
-	if (SIDE == SIDE_B_ID)
-	{
-		servoDriver.writeMicroseconds(SERVO_SIDE_B_L, FOLD_L);
-		servoDriver.writeMicroseconds(SERVO_SIDE_B_R, FOLD_R);
-		side_B_full = true;
-	}
-	if (SIDE == SIDE_C_ID)
-	{
-		servoDriver.writeMicroseconds(SERVO_SIDE_C_L, FOLD_L);
-		servoDriver.writeMicroseconds(SERVO_SIDE_C_R, FOLD_R);
-		side_C_full = true;
-	}
-}
-
-void Actuators::releaseObject(int SIDE)
-{
-	if (SIDE == SIDE_A_ID)
-	{
-		servoDriver.writeMicroseconds(SERVO_SIDE_A_L, RELEASE_L);
-		servoDriver.writeMicroseconds(SERVO_SIDE_A_R, RELEASE_R);
-
-		side_A_full = false;
-	}
-	if (SIDE == SIDE_B_ID)
-	{
-		servoDriver.writeMicroseconds(SERVO_SIDE_B_L, RELEASE_L);
-		servoDriver.writeMicroseconds(SERVO_SIDE_B_R, RELEASE_R);
-		side_B_full = false;
-	}
-	if (SIDE == SIDE_C_ID)
-	{
-		servoDriver.writeMicroseconds(SERVO_SIDE_C_L, RELEASE_L);
-		servoDriver.writeMicroseconds(SERVO_SIDE_C_R, RELEASE_R);
-		side_C_full = false;
-	}
-}
-
-bool Actuators::isObjectPicked(int SIDE)
-{
-	if (SIDE == SIDE_A_ID)
-	{
-		return side_A_full;
-	}
-	if (SIDE == SIDE_B_ID)
-	{
-		return side_B_full;
-	}
-	if (SIDE == SIDE_C_ID)
-	{
-		return side_C_full;
-	}
-	else
-	{
-		return true;
-	}
-}
-
-void Actuators::dropCherry()
-{
-	servoDriver.writeMicroseconds(SERVO_CHERRY_A, 2300);
-	delay(20);
-	servoDriver.writeMicroseconds(SERVO_CHERRY_B, 2300);
-	delay(20);
-	servoDriver.writeMicroseconds(SERVO_CHERRY_C, 2300);
-	delay(20);
-}
 void Actuators::setup()
 {
 	Serial.println();
-	Serial.println("Actuators :: setting up...");
-	servoDriver.begin();
-	servoDriver.setOscillatorFrequency(28000000);
-	// servoDriver.setOscillatorFrequency(50000000);
-	servoDriver.setPWMFreq(50);
-	// servoDriver.
-	delay(1500);
-	releaseAll();
-	delay(1500);
-	foldAll();
-	delay(1500);
-	// elevateAll();
-	// delay(500);
-	// delevateAll();
-	// delay(500);
-	// elevateAll();
-	// delay(500);
+	Serial.println("Actuators :: starting setup up");
+	driver.begin();
+	driver.setOscillatorFrequency(28000000);
+	driver.setPWMFreq(50);
+	delay(100);
+	// set initial setup
+	pumpUp(false);
+	pumpLeft(false);
+	pumpRight(false);
+	slide(false);
+	leftArm(false);
+	rightArm(false);
 	Serial.println("Actuators :: setup done");
 }
 
-void Actuators::foldAll()
+void Actuators::pumpUp(bool hold)
 {
-	Serial.println("fold");
-	servoDriver.writeMicroseconds(SERVO_SIDE_A_L, FOLD_L);
-	servoDriver.writeMicroseconds(SERVO_SIDE_A_R, FOLD_R);
-	servoDriver.writeMicroseconds(SERVO_SIDE_B_L, FOLD_L);
-	servoDriver.writeMicroseconds(SERVO_SIDE_B_R, FOLD_R);
-	servoDriver.writeMicroseconds(SERVO_SIDE_C_L, FOLD_L);
-	servoDriver.writeMicroseconds(SERVO_SIDE_C_R, FOLD_R);
-	Serial.println("fold done");
-	servoDriver.setPWM(14, 0, 4096);
-	servoDriver.setPWM(15, 4096, 0);
-	delay(4000);
-}
-
-void Actuators::releaseAll()
-{
-	Serial.println("release");
-	servoDriver.writeMicroseconds(SERVO_SIDE_A_L, RELEASE_L);
-	servoDriver.writeMicroseconds(SERVO_SIDE_A_R, RELEASE_R);
-	servoDriver.writeMicroseconds(SERVO_SIDE_B_L, RELEASE_L);
-	servoDriver.writeMicroseconds(SERVO_SIDE_B_R, RELEASE_R);
-	servoDriver.writeMicroseconds(SERVO_SIDE_C_L, RELEASE_L);
-	servoDriver.writeMicroseconds(SERVO_SIDE_C_R, RELEASE_R);
-	Serial.println("release done");
-	servoDriver.setPWM(14, 4096, 0);
-	servoDriver.setPWM(15, 0, 4096);
-	delay(4000);
-}
-
-void Actuators::performTEST()
-{
-	while (1)
+	Serial.print("PUMP_UP : ");
+	Serial.println(hold);
+	if (hold)
 	{
-		delevateObject(SIDE_A_ID, 0);
-		pickObject(SIDE_A_ID);
-		delay(2000);
-		elevateObject(SIDE_A_ID, 0);
-		delay(2000);
-		elevateObject(SIDE_A_ID, 1);
-		delay(2000);
-		elevateObject(SIDE_A_ID, 2);
-		delay(2000);
-		delevateObject(SIDE_A_ID, 2);
-		delay(2000);
-		delevateObject(SIDE_A_ID, 1);
-		delay(2000);
-		delevateObject(SIDE_A_ID, 0);
-		delay(2000);
-		releaseObject(SIDE_A_ID);
-		delay(5000);
-		delevateObject(SIDE_B_ID, 0);
-		pickObject(SIDE_B_ID);
-		delay(2000);
-		elevateObject(SIDE_B_ID, 0);
-		delay(2000);
-		elevateObject(SIDE_B_ID, 1);
-		delay(2000);
-		elevateObject(SIDE_B_ID, 2);
-		delay(2000);
-		delevateObject(SIDE_B_ID, 2);
-		delay(2000);
-		delevateObject(SIDE_B_ID, 1);
-		delay(2000);
-		delevateObject(SIDE_B_ID, 0);
-		delay(2000);
-		releaseObject(SIDE_B_ID);
-		delay(5000);
-		delevateObject(SIDE_C_ID, 0);
-		pickObject(SIDE_C_ID);
-		delay(2000);
-		elevateObject(SIDE_C_ID, 0);
-		delay(2000);
-		elevateObject(SIDE_C_ID, 1);
-		delay(2000);
-		elevateObject(SIDE_C_ID, 2);
-		delay(2000);
-		delevateObject(SIDE_C_ID, 2);
-		delay(2000);
-		delevateObject(SIDE_C_ID, 1);
-		delay(2000);
-		delevateObject(SIDE_C_ID, 0);
-		delay(2000);
-		releaseObject(SIDE_C_ID);
+		driver.setPWM(PUMP_PLANK, 0, 4096);
+		driver.setPWM(PUMP_PLANK_VALVE, 4096, 0);
+	}
+	else
+	{
+		driver.setPWM(PUMP_PLANK, 4096, 0);
+		driver.setPWM(PUMP_PLANK_VALVE, 0, 4096);
 	}
 }
 
-void Actuators::elevateObject(int SIDE, int LEVEL)
+void Actuators::pumpLeft(bool hold)
 {
-	if (LEVEL == 1)
+	Serial.print("PUMP_LEFT : ");
+	Serial.println(hold);
+	if (hold)
 	{
-		if (SIDE == SIDE_A_ID)
-		{
-			for (uint16_t microsec = (US_LEVEL_0); microsec < (US_LEVEL_1 + 150); microsec++)
-			{
-				servoDriver.writeMicroseconds(SERVO_SIDE_A_U, microsec);
-			}
-		}
-		else if (SIDE == SIDE_B_ID)
-		{
-			for (uint16_t microsec = US_LEVEL_0; microsec < (US_LEVEL_1 + 150); microsec++)
-			{
-				servoDriver.writeMicroseconds(SERVO_SIDE_B_U, microsec);
-			}
-		}
-		else if (SIDE == SIDE_C_ID)
-		{
-			for (uint16_t microsec = US_LEVEL_0; microsec < (US_LEVEL_1 + 150); microsec++)
-			{
-				servoDriver.writeMicroseconds(SERVO_SIDE_C_U, microsec);
-			}
-		}
+		driver.setPWM(PUMP_LEFT_CAN, 0, 4096);
+		driver.setPWM(PUMP_LEFT_CAN_VALVE, 4096, 0);
 	}
-	else if (LEVEL == 2)
+	else
 	{
-		if (SIDE == SIDE_A_ID)
-		{
-			for (uint16_t microsec = (US_LEVEL_1 + 150); microsec < (US_LEVEL_2 + 250); microsec++)
-			{
-				servoDriver.writeMicroseconds(SERVO_SIDE_A_U, microsec);
-			}
-		}
-		else if (SIDE == SIDE_B_ID)
-		{
-			for (uint16_t microsec = (US_LEVEL_1 + 150); microsec < (US_LEVEL_2 + 250); microsec++)
-			{
-				servoDriver.writeMicroseconds(SERVO_SIDE_B_U, microsec);
-			}
-		}
-		else if (SIDE == SIDE_C_ID)
-		{
-			for (uint16_t microsec = (US_LEVEL_1 + 150); microsec < (US_LEVEL_2 + 250); microsec++)
-			{
-				servoDriver.writeMicroseconds(SERVO_SIDE_C_U, microsec);
-			}
-		}
-	}
-	else if (LEVEL == 3)
-	{
-		if (SIDE == SIDE_A_ID)
-		{
-			for (uint16_t microsec = (US_LEVEL_2 + 250); microsec < (US_LEVEL_3 + 300); microsec++)
-			{
-				servoDriver.writeMicroseconds(SERVO_SIDE_A_U, microsec);
-			}
-		}
-		else if (SIDE == SIDE_B_ID)
-		{
-			for (uint16_t microsec = (US_LEVEL_2 + 250); microsec < (US_LEVEL_3 + 300); microsec++)
-			{
-				servoDriver.writeMicroseconds(SERVO_SIDE_B_U, microsec);
-			}
-		}
-		else if (SIDE == SIDE_C_ID)
-		{
-			for (uint16_t microsec = (US_LEVEL_2 + 250); microsec < (US_LEVEL_3 + 300); microsec++)
-			{
-				servoDriver.writeMicroseconds(SERVO_SIDE_C_U, microsec);
-			}
-		}
+		driver.setPWM(PUMP_LEFT_CAN, 4096, 0);
+		driver.setPWM(PUMP_LEFT_CAN_VALVE, 0, 4096);
 	}
 }
 
-void Actuators::funnyAction()
+void Actuators::pumpRight(bool hold)
 {
-	releaseAll();
-	delay(1500);
-	foldAll();
-	delay(1500);
-}
-
-void Actuators::dropCherryStream()
-{
-	servoDriver.writeMicroseconds(SERVO_CHERRY_DROP, 1900);
-}
-
-void Actuators::delevateObject(int SIDE, int LEVEL)
-{
-	if (LEVEL == 0)
+	Serial.print("PUMP_RIGHT : ");
+	Serial.println(hold);
+	if (hold)
 	{
-		if (SIDE == SIDE_A_ID)
-		{
-			for (uint16_t microsec = US_LEVEL_1; microsec > 480; microsec--)
-			{
-				servoDriver.writeMicroseconds(SERVO_SIDE_A_U, microsec);
-			}
-		}
-		else if (SIDE == SIDE_B_ID)
-		{
-			for (uint16_t microsec = US_LEVEL_1; microsec > US_LEVEL_0; microsec--)
-			{
-				servoDriver.writeMicroseconds(SERVO_SIDE_B_U, microsec);
-			}
-		}
-		else if (SIDE == SIDE_C_ID)
-		{
-			for (uint16_t microsec = US_LEVEL_1; microsec > US_LEVEL_0; microsec--)
-			{
-				servoDriver.writeMicroseconds(SERVO_SIDE_C_U, microsec);
-			}
-		}
+		driver.setPWM(PUMP_RIGHT_CAN, 4096, 0);
+		driver.setPWM(PUMP_RIGHT_CAN_VALVE, 0, 4096);
 	}
-	else if (LEVEL == 1)
+	else
 	{
-		if (SIDE == SIDE_A_ID)
-		{
-			for (uint16_t microsec = US_LEVEL_2; microsec > US_LEVEL_1; microsec--)
-			{
-				servoDriver.writeMicroseconds(SERVO_SIDE_A_U, microsec);
-			}
-		}
-		else if (SIDE == SIDE_B_ID)
-		{
-			for (uint16_t microsec = US_LEVEL_2; microsec > US_LEVEL_1; microsec--)
-			{
-				servoDriver.writeMicroseconds(SERVO_SIDE_B_U, microsec);
-			}
-		}
-		else if (SIDE == SIDE_C_ID)
-		{
-			for (uint16_t microsec = US_LEVEL_2; microsec > US_LEVEL_1; microsec--)
-			{
-				servoDriver.writeMicroseconds(SERVO_SIDE_C_U, microsec);
-			}
-		}
-	}
-	else if (LEVEL == 2)
-	{
-		if (SIDE == SIDE_A_ID)
-		{
-			for (uint16_t microsec = US_LEVEL_3; microsec > US_LEVEL_2; microsec--)
-			{
-				servoDriver.writeMicroseconds(SERVO_SIDE_A_U, microsec);
-			}
-		}
-		else if (SIDE == SIDE_B_ID)
-		{
-			for (uint16_t microsec = US_LEVEL_3; microsec > US_LEVEL_2; microsec--)
-			{
-				servoDriver.writeMicroseconds(SERVO_SIDE_B_U, microsec);
-			}
-		}
-		else if (SIDE == SIDE_C_ID)
-		{
-			for (uint16_t microsec = US_LEVEL_3; microsec > US_LEVEL_2; microsec--)
-			{
-				servoDriver.writeMicroseconds(SERVO_SIDE_C_U, microsec);
-			}
-		}
+		driver.setPWM(PUMP_RIGHT_CAN, 0, 4096);
+		driver.setPWM(PUMP_RIGHT_CAN_VALVE, 4096, 0);
 	}
 }
 
-void Actuators::delevateAll()
+void Actuators::slide(bool up)
 {
-	delevateObject(SIDE_A_ID, 0);
-	delevateObject(SIDE_B_ID, 0);
-	delevateObject(SIDE_C_ID, 0);
-}
-void Actuators::elevateAll()
-{
-	elevateObject(SIDE_A_ID, 3);
-	elevateObject(SIDE_B_ID, 3);
-	elevateObject(SIDE_C_ID, 3);
-}
-
-void Actuators::initCook()
-{
-	// releaseObject(SIDE_A_ID);
-	releaseObject(SIDE_B_ID);
-	releaseObject(SIDE_C_ID);
-	delay(5000);
-	// pickObject(SIDE_A_ID);
-	pickObject(SIDE_B_ID);
-	pickObject(SIDE_C_ID);
-	// elevateObject(SIDE_A_ID, 1);
-	elevateObject(SIDE_B_ID, 1);
-	elevateObject(SIDE_C_ID, 1);
+	Serial.print("SLIDE : ");
+	Serial.println(up);
+	if (up)
+	{
+		driver.writeMicroseconds(LEFT_ELEVATOR, 2300);
+		driver.writeMicroseconds(RIGHT_ELEVATOR, 900);
+	}
+	else
+	{
+		driver.writeMicroseconds(LEFT_ELEVATOR, 1525);
+		driver.writeMicroseconds(RIGHT_ELEVATOR, 1800);
+	}
 }
 
-void Actuators::normalize()
+void Actuators::leftArm(bool hold)
 {
-	delevateObject(SIDE_A_ID, 0);
-	delevateObject(SIDE_B_ID, 0);
-	delevateObject(SIDE_C_ID, 0);
-	releaseObject(SIDE_A_ID);
-	releaseObject(SIDE_B_ID);
-	releaseObject(SIDE_C_ID);
-	elevateObject(SIDE_A_ID, 2);
-	elevateObject(SIDE_B_ID, 2);
-	elevateObject(SIDE_C_ID, 2);
+	Serial.print("LEFT_ARM : ");
+	Serial.println(hold);
+	if (hold)
+	{
+		driver.writeMicroseconds(LEFT_ARM, FOLD_L);
+	}
+	else
+	{
+		driver.writeMicroseconds(LEFT_ARM, RELEASE_L);
+	}
+}
+
+void Actuators::rightArm(bool hold)
+{
+	Serial.print("RIGHT_ARM : ");
+	Serial.println(hold);
+	if (hold)
+	{
+		driver.writeMicroseconds(RIGHT_ARM, FOLD_R);
+	}
+	else
+	{
+		driver.writeMicroseconds(RIGHT_ARM, RELEASE_R);
+	}
 }
