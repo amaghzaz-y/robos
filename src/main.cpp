@@ -48,18 +48,17 @@ void setup()
     lidar.setRadius(360);
     lidar.setAngle(180);
     strategy.setup();
-    strategy.display.Show("FARMING", "MY", "ASS", "<3");
+    strategy.display.Show(" KISS", "  MY", "   ASS", "    XOXO <3");
     Serial.println("setup done");
     xTaskCreatePinnedToCore(LidarTask, "lidarTask", 10000, NULL, 0, NULL, 0);
 }
 
 void loop()
 {
-    delay(1000);
     strategy.Initiation();
     strategy.Ready();
     delay(5000);
     // delay(5000);
     // ticker.start();
-    strategy.start(&lidarStatus);
+    // strategy.start(&lidarStatus);
 }

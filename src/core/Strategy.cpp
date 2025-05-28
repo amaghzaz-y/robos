@@ -23,6 +23,7 @@ void Strategy::init()
 	if (digitalRead(INIT_PIN) == 0)
 	{
 		Serial.println("Starting Calibration");
+		movement.calibrate();
 	}
 	else
 	{
@@ -37,6 +38,7 @@ void Strategy::teamSelection()
 		movement.setTeam(0);
 		team = 0;
 		display.Show("TEAM", "YELLOW", "", "");
+		Serial.println("team YELLOW");
 		// neopixel.changeColor(1);
 	}
 	if (digitalRead(TEAM_PIN) == 1)
@@ -44,6 +46,7 @@ void Strategy::teamSelection()
 		movement.setTeam(1);
 		team = 1;
 		display.Show("TEAM", "BLUE", "", "");
+		Serial.println("team BLUE");
 		// neopixel.changeColor(2);
 	}
 }

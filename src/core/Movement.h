@@ -62,7 +62,7 @@ public:
 	void setTeam(int t);
 	bool isCalibrated();
 	bool atHome();
-	void Calibrate();
+	void calibrate();
 	// move to point with translation
 	void Execute(Point2D point, bool *lidar);
 	// move to point with rotation and translation
@@ -71,8 +71,8 @@ public:
 	void ExecuteSEMIOFFSET(Point2D point, bool *lidar);
 	void ExecuteSEMIOFFSET(Point2D point, int offset, bool *lidar);
 
-	void goHome();
-	void goHomeSEMI();
+	// void goHome();
+	// void goHomeSEMI();
 	void goBack(int distance, bool *lidar);
 	void setCurrentPosition(Point2D point);
 	Point2D getCurrentPoint();

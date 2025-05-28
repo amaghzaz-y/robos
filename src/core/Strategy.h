@@ -11,12 +11,12 @@
 #include "core/NeoPixel.h"
 #include "core/Sensors.h"
 
-#define HEIGHT 2000 // value in mm
-#define WIDTH 1500	// value in mm
+#define HEIGHT 3000 // value in mm
+#define WIDTH 2000	// value in mm
 
 const int PIN_RST_OLED = 19;
-const int INIT_PIN = PIN_L2;
-const int TEAM_PIN = PIN_L1;
+const int INIT_PIN = PIN_L1;
+const int TEAM_PIN = PIN_L2;
 const int REED_PIN = PIN_L3;
 
 class Strategy

@@ -12,7 +12,7 @@ void Actuators::setup()
 	pumpUp(false);
 	pumpLeft(false);
 	pumpRight(false);
-	slide(false);
+	slide(true);
 	leftArm(false);
 	rightArm(false);
 	Serial.println("Actuators :: setup done");

@@ -122,16 +122,11 @@ void Movement::runSync()
 
 void Movement::stop()
 {
-	// A1.stop();
-	// A2.stop();
-	// A3.stop();
 	delay(1000);
 	do
 	{
 		delay(500);
 	} while (*isDetected);
-	// Serial.print("STOP :: ");
-	// Serial.println(*isDetected);
 }
 
 void Movement::FullStop()
@@ -147,7 +142,6 @@ void Movement::FullStop()
 void Movement::setTeam(int i)
 {
 	team = i;
-
 	if (i == 0)
 	{
 		currentRotation = 60.0;
@@ -155,41 +149,6 @@ void Movement::setTeam(int i)
 	else if (i == 1)
 	{
 		currentRotation = 0.0;
-	}
-}
-
-void Movement::goHome()
-{
-	if (team == 0)
-	{
-		setPoint(TEAM_BLUE);
-		goToPoint();
-		isHome = true;
-	}
-	else if (team == 1)
-	{
-		setPoint(TEAM_YELLOW);
-		goToPoint();
-		isHome = true;
-	}
-}
-
-void Movement::goHomeSEMI()
-{
-	setSide(SIDE_A);
-	if (team == 0)
-	{
-		setPoint(TEAM_BLUE);
-		goToPointRotate();
-		setRotation(SIDE_A);
-		runSync();
-		isHome = true;
-	}
-	else if (team == 1)
-	{
-		setPoint(TEAM_YELLOW);
-		goToPointRotate();
-		isHome = true;
 	}
 }
 
@@ -362,40 +321,58 @@ void Movement::setSide(float angle)
 	currentSideAngle = angle;
 }
 
-void Movement::Calibrate()
+void Movement::calibrate()
 {
+	const float scale = 10.0;
+	const float yellow_runway = 20.0;
+	const float blue_runway = 30.0;
+
 	ACCEL = MAX_ACCEL / 3;
 	SPEED = MAX_SPEED / 3;
+
 	// YELLOW
 	if (team == 0)
 	{
 		Serial.println("calibrating for team 0");
-		moveTo(PolarVec(SIDE_C, 200).ToSteps());
+		moveTo(PolarVec(SIDE_A, 20 * scale).ToSteps());
 		runSync();
-		moveTo(PolarVec(SIDE_AB, 115).ToSteps());
+		moveTo(PolarVec(SIDE_BC, 11.5 * scale).ToSteps());
 		runSync();
-		rotateTo(30.0);
+		rotateTo(-30.0);
 		runSync();
-		moveTo(PolarVec(SIDE_CA, 200).ToSteps());
+		moveTo(PolarVec(SIDE_CA, 20 * scale).ToSteps());
 		runSync();
-		moveTo(PolarVec(SIDE_B, 30).ToSteps());
+		// go to starting position yellow
+		moveTo(PolarVec(SIDE_B, yellow_runway * scale).ToSteps());
 		runSync();
+		// turn the flag to the table
+		rotateTo(210.0);
+		runSync();
+		//************************************************ */
+		// just for the flag :)
+		// {
+		// 	moveTo(PolarVec(SIDE_BC, 10 * scale).ToSteps());
+		// 	runSync();
+		// 	moveTo(PolarVec(SIDE_A, 10 * scale).ToSteps());
+		// 	runSync();
+		// }
 		isHome = true;
 		calibrated = true;
 		currentPoint = TEAM_YELLOW;
 	}
+
 	// BLUE
 	if (team == 1)
 	{
-		moveTo(PolarVec(SIDE_C, 200).ToSteps());
+		moveTo(PolarVec(SIDE_C, 20 * scale).ToSteps());
 		runSync();
-		moveTo(PolarVec(SIDE_AB, 115).ToSteps());
+		moveTo(PolarVec(SIDE_AB, 11.5 * scale).ToSteps());
 		runSync();
 		rotateTo(-30.0);
 		runSync();
-		moveTo(PolarVec(SIDE_BC, 200).ToSteps());
+		moveTo(PolarVec(SIDE_BC, 20 * scale).ToSteps());
 		runSync();
-		moveTo(PolarVec(SIDE_A, 30).ToSteps());
+		moveTo(PolarVec(SIDE_A, 30 * scale).ToSteps());
 		runSync();
 		isHome = true;
 		calibrated = true;
@@ -416,7 +393,6 @@ void Movement::Execute(Point2D point, bool *lidar)
 	isDetected = lidar;
 	setPoint(point);
 	goToPoint();
-	delay(800);
 }
 
 void Movement::ExecuteSEMI(Point2D point, bool *lidar)
@@ -424,7 +400,6 @@ void Movement::ExecuteSEMI(Point2D point, bool *lidar)
 	isDetected = lidar;
 	setPoint(point);
 	goToPointRotate();
-	delay(800);
 }
 
 void Movement::ExecuteSEMIOFFSET(Point2D point, bool *lidar)
@@ -433,6 +408,7 @@ void Movement::ExecuteSEMIOFFSET(Point2D point, bool *lidar)
 	setPoint(point);
 	goToPoinRotateOffset();
 }
+
 void Movement::ExecuteSEMIOFFSET(Point2D point, int offset, bool *lidar)
 {
 	isDetected = lidar;
