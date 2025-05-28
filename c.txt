@@ -1,0 +1,14 @@
+1. cdc on boot en
+2. cpu 240mhz
+3. usb dfu disabled
+4. erase all
+5. core 1
+6. qio 80mhz
+7. flash size 8mb / 32mb
+9. mco on boot disabled
+10. partition scheme 1.3mb app
+11. psram disabled
+12. upload 921600
+13. usb mode hardware cdc jtag
+14. zigbee, wifi,bt disabled
+15. 

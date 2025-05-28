@@ -81,6 +81,7 @@ void Actuators::setup()
 	servoDriver.begin();
 	servoDriver.setOscillatorFrequency(28000000);
 	servoDriver.setPWMFreq(SERVO_FREQ);
+	// servoDriver.
 	// delay(500);
 	// releaseAll();
 	// delay(500);

@@ -166,8 +166,8 @@ void Strategy::strat_BLUE(bool *lidar)
 	Point2D delta4 = Point2D(1300, 400);
 	Point2D delta5 = Point2D(1250, 1650);
 
-	actuators.elevateAll();
-	actuators.releaseAll();
+	// actuators.elevateAll();
+	// actuators.releaseAll();
 
 	// turn flags
 	movement.setSide(SIDE_C);
@@ -208,68 +208,49 @@ void Strategy::strat_BLUE(bool *lidar)
 
 void Strategy::strat_YELLOW(bool *lidar)
 {
-	// homes
-	Point2D home_alpha = Point2D(3000 - 300, 1700);
-	Point2D home_beta = Point2D(3000 - 300, 300);
-	Point2D home_theta = Point2D(3000 - 2775, 1000);
+	//
+	Point2D startingPosition = Point2D(1225, 1775);
+	Point2D endingPosition = Point2D(325, 225);
 
-	// flowers
-	Point2D alpha = Point2D(3000 - 1000, 1300);
-	Point2D beta = Point2D(3000 - 1000, 700);
-	Point2D tetha = Point2D(3000 - 1500, 1500);
+	Point2D waypoint1 = Point2D(1100, 1400);
+	Point2D waypoint2 = Point2D(775, 1400);
+	Point2D waypoint3 = Point2D(775, 1800);
+	Point2D waypoint4 = Point2D(1500, 1500);
+	Point2D waypoint5 = Point2D(1500, 1500);
 
-	// flags checkpoints
-	Point2D b0 = Point2D(3000 - 225, 1820);
-	Point2D b1 = Point2D(3000 - 850, 1820);
-	Point2D b2 = Point2D(3000 - 850, 1750);
+	// // homes
+	// Point2D home_alpha = Point2D(3000 - 300, 1700);
+	// Point2D home_beta = Point2D(3000 - 300, 300);
+	// Point2D home_theta = Point2D(3000 - 2775, 1000);
 
-	// checkpoints
-	Point2D delta0 = Point2D(3000 - 1300, 1600);
-	Point2D delta1 = Point2D(3000 - 500, 500);
-	Point2D delta2 = Point2D(3000 - 600, 225);
-	Point2D delta3 = Point2D(3000 - 1000, 225);
-	Point2D delta4 = Point2D(3000 - 1300, 400);
-	Point2D delta5 = Point2D(3000 - 1250, 1650);
+	// // flowers
+	// Point2D alpha = Point2D(3000 - 1000, 1300);
+	// Point2D beta = Point2D(3000 - 1000, 700);
+	// Point2D tetha = Point2D(3000 - 1500, 1500);
 
-	actuators.elevateAll();
-	actuators.releaseAll();
-	// turn flags
-	movement.setSide(SIDE_C);
-	movement.ExecuteSEMI(b0, lidar);
-	movement.setSide(SIDE_BC);
-	movement.ExecuteSEMI(b1, lidar);
-	movement.setSide(30);
-	movement.setSide(SIDE_B);
-	movement.ExecuteSEMI(b2, lidar);
+	// // flags checkpoints
+	// Point2D b0 = Point2D(3000 - 225, 1820);
+	// Point2D b1 = Point2D(3000 - 850, 1820);
+	// Point2D b2 = Point2D(3000 - 850, 1750);
 
-	// 1. go to delta 0
-	movement.setSide(SIDE_A);
-	movement.ExecuteSEMI(delta0, lidar);
-	// 2. push alpha to home beta
-	actuators.delevateObject(SIDE_B_ID, 0);
-	movement.setSide(SIDE_B);
-	movement.ExecuteSEMI(home_beta, lidar);
-	// 3. go to delta 1
-	movement.setSide(SIDE_CA);
-	movement.ExecuteSEMI(delta1, lidar);
-	// 3. go to delta 2
-	movement.setSide(SIDE_A);
-	movement.ExecuteSEMI(delta2, lidar);
-	// 4. go to delta 3
-	movement.setSide(SIDE_C);
-	movement.ExecuteSEMI(delta3, lidar);
-	// 5. go to delta 4
-	movement.setSide(SIDE_C);
-	movement.ExecuteSEMI(delta4, lidar);
-	// 6.  push beta to home alpha
-	movement.setSide(SIDE_B);
-	movement.ExecuteSEMI(home_alpha, lidar);
-	// 9. go to delta5
-	movement.setSide(SIDE_CA);
-	movement.ExecuteSEMI(delta5, lidar);
-	// 10. push theta to home theta
-	movement.setSide(SIDE_B);
-	movement.ExecuteSEMI(home_theta, lidar);
+	// // checkpoints
+	// Point2D delta0 = Point2D(3000 - 1300, 1600);
+	// Point2D delta1 = Point2D(3000 - 500, 500);
+	// Point2D delta2 = Point2D(3000 - 600, 225);
+	// Point2D delta3 = Point2D(3000 - 1000, 225);
+	// Point2D delta4 = Point2D(3000 - 1300, 400);
+	// Point2D delta5 = Point2D(3000 - 1250, 1650);
+
+	// // actuators.elevateAll();
+	// // actuators.releaseAll();
+	// // turn flags
+	// movement.setSide(SIDE_C);
+	// movement.ExecuteSEMI(b0, lidar);
+	// movement.setSide(SIDE_BC);
+	// movement.ExecuteSEMI(b1, lidar);
+	// movement.setSide(30);
+	// movement.setSide(SIDE_B);
+	// movement.ExecuteSEMI(b2, lidar);
 }
 
 void Strategy::Homologuation(bool *lidar)
@@ -288,7 +269,7 @@ void Strategy::Homologuation(bool *lidar)
 void Strategy::CoupOff()
 {
 	int time_elapsed = 0;
-	actuators.elevateAll();
+	// actuators.elevateAll();
 	time_elapsed = millis() - time_elapsed;
 	// 10 start , 17 change, 23, 29, 38 laser, 42 pause, 46, dance, 64 stop
 	while (1)
@@ -302,16 +283,15 @@ void Strategy::CoupOff()
 	{
 		time_elapsed = millis() - time_elapsed;
 		// neopixel.changeColor(0);
-
-		actuators.delevateAll();
-		actuators.foldAll();
+		// actuators.delevateAll();
+		// actuators.foldAll();
 		movement.rotateTo(45.0);
 		movement.runSync();
 		// neopixel.pride();
 		movement.rotateTo(-45.0);
 		movement.runSync();
-		actuators.elevateAll();
-		actuators.releaseAll();
+		// actuators.elevateAll();
+		// actuators.releaseAll();
 		delay(500);
 	}
 
@@ -327,13 +307,13 @@ void Strategy::CoupOff()
 	while (time_elapsed < 29 * 1000)
 	{
 		time_elapsed = millis() - time_elapsed;
-		actuators.delevateAll();
-		actuators.foldAll();
+		// actuators.delevateAll();
+		// actuators.foldAll();
 		// neopixel.changeColor(0);
 		movement.rotateTo(20.0);
 		movement.runSync();
-		actuators.elevateAll();
-		actuators.releaseAll();
+		// actuators.elevateAll();
+		// actuators.releaseAll();
 		// neopixel.changeColor(3);
 		delay(500);
 	}

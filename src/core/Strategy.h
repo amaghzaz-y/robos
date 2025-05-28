@@ -48,5 +48,5 @@ public:
 	void Homologuation(bool *lidar);
 	Point2D getCurrentPoint();
 	void testINPUT();
-	void dropAllCherries();
+	// void dropAllCherries();
 };
