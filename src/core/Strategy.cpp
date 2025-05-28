@@ -8,8 +8,8 @@ void Strategy::setup()
 	Serial.println("STRATEGY :: SETUP");
 	currentInstruction = 0;
 	display.setup();
-	// movement.setup();
-	// actuators.setup();
+	movement.setup();
+	actuators.setup();
 	// neopixel.setup();
 	// sensors.setup();
 	pinMode(INIT_PIN, INPUT_PULLUP);
@@ -23,9 +23,10 @@ void Strategy::init()
 	if (digitalRead(INIT_PIN) == 0)
 	{
 		Serial.println("Starting Calibration");
-		display.Show("STARTING", "CALIBRATION", "", "");
-		// actuators.releaseAll();
-		movement.Calibrate();
+		// display.Show("STARTING", "CALIBRATION", "", "");
+		actuators.releaseAll();
+		actuators.foldAll();
+		// movement.Calibrate();
 	}
 	else
 	{
@@ -112,11 +113,11 @@ void Strategy::setPoints(Point2D *p, int len)
 
 void Strategy::Initiation()
 {
-	// while (!movement.isCalibrated() || !movement.atHome())
-	// {
-	init();
-	teamSelection();
-	// }
+	while (!movement.isCalibrated() || !movement.atHome())
+	{
+		init();
+		teamSelection();
+	}
 }
 
 // void Strategy::dropAllCherries()

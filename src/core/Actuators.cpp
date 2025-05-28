@@ -65,56 +65,67 @@ bool Actuators::isObjectPicked(int SIDE)
 	}
 }
 
-// void Actuators::dropCherry()
-// {
-// 	servoDriver.writeMicroseconds(SERVO_CHERRY_A, 2300);
-// 	delay(20);
-// 	servoDriver.writeMicroseconds(SERVO_CHERRY_B, 2300);
-// 	delay(20);
-// 	servoDriver.writeMicroseconds(SERVO_CHERRY_C, 2300);
-// 	delay(20);
-// }
+void Actuators::dropCherry()
+{
+	servoDriver.writeMicroseconds(SERVO_CHERRY_A, 2300);
+	delay(20);
+	servoDriver.writeMicroseconds(SERVO_CHERRY_B, 2300);
+	delay(20);
+	servoDriver.writeMicroseconds(SERVO_CHERRY_C, 2300);
+	delay(20);
+}
 void Actuators::setup()
 {
 	Serial.println();
 	Serial.println("Actuators :: setting up...");
 	servoDriver.begin();
 	servoDriver.setOscillatorFrequency(28000000);
-	servoDriver.setPWMFreq(SERVO_FREQ);
+	// servoDriver.setOscillatorFrequency(50000000);
+	servoDriver.setPWMFreq(50);
 	// servoDriver.
-	// delay(500);
-	// releaseAll();
-	// delay(500);
-	// foldAll();
+	delay(1500);
+	releaseAll();
+	delay(1500);
+	foldAll();
+	delay(1500);
+	// elevateAll();
 	// delay(500);
 	// delevateAll();
 	// delay(500);
 	// elevateAll();
 	// delay(500);
-	// Serial.println("Actuators :: setup done");
+	Serial.println("Actuators :: setup done");
 }
 
-// void Actuators::foldAll()
-// {
-// 	servoDriver.writeMicroseconds(SERVO_SIDE_A_L, FOLD_L);
-// 	servoDriver.writeMicroseconds(SERVO_SIDE_A_R, FOLD_R);
-// 	servoDriver.writeMicroseconds(SERVO_SIDE_B_L, FOLD_L);
-// 	servoDriver.writeMicroseconds(SERVO_SIDE_B_R, FOLD_R);
-// 	servoDriver.writeMicroseconds(SERVO_SIDE_C_L, FOLD_L);
-// 	servoDriver.writeMicroseconds(SERVO_SIDE_C_R, FOLD_R);
-// }
+void Actuators::foldAll()
+{
+	Serial.println("fold");
+	servoDriver.writeMicroseconds(SERVO_SIDE_A_L, FOLD_L);
+	servoDriver.writeMicroseconds(SERVO_SIDE_A_R, FOLD_R);
+	servoDriver.writeMicroseconds(SERVO_SIDE_B_L, FOLD_L);
+	servoDriver.writeMicroseconds(SERVO_SIDE_B_R, FOLD_R);
+	servoDriver.writeMicroseconds(SERVO_SIDE_C_L, FOLD_L);
+	servoDriver.writeMicroseconds(SERVO_SIDE_C_R, FOLD_R);
+	Serial.println("fold done");
+	servoDriver.setPWM(14, 0, 4096);
+	servoDriver.setPWM(15, 4096, 0);
+	delay(4000);
+}
 
-// void Actuators::releaseAll()
-// {
-// 	Serial.println("defolding");
-// 	servoDriver.writeMicroseconds(SERVO_SIDE_A_L, RELEASE_L);
-// 	servoDriver.writeMicroseconds(SERVO_SIDE_A_R, RELEASE_R);
-// 	servoDriver.writeMicroseconds(SERVO_SIDE_B_L, RELEASE_L);
-// 	servoDriver.writeMicroseconds(SERVO_SIDE_B_R, RELEASE_R);
-// 	servoDriver.writeMicroseconds(SERVO_SIDE_C_L, RELEASE_L);
-// 	servoDriver.writeMicroseconds(SERVO_SIDE_C_R, RELEASE_R);
-// 	Serial.println("defolded");
-// }
+void Actuators::releaseAll()
+{
+	Serial.println("release");
+	servoDriver.writeMicroseconds(SERVO_SIDE_A_L, RELEASE_L);
+	servoDriver.writeMicroseconds(SERVO_SIDE_A_R, RELEASE_R);
+	servoDriver.writeMicroseconds(SERVO_SIDE_B_L, RELEASE_L);
+	servoDriver.writeMicroseconds(SERVO_SIDE_B_R, RELEASE_R);
+	servoDriver.writeMicroseconds(SERVO_SIDE_C_L, RELEASE_L);
+	servoDriver.writeMicroseconds(SERVO_SIDE_C_R, RELEASE_R);
+	Serial.println("release done");
+	servoDriver.setPWM(14, 4096, 0);
+	servoDriver.setPWM(15, 0, 4096);
+	delay(4000);
+}
 
 void Actuators::performTEST()
 {
@@ -249,18 +260,18 @@ void Actuators::elevateObject(int SIDE, int LEVEL)
 	}
 }
 
-// void Actuators::funnyAction()
-// {
-// 	releaseAll();
-// 	delay(1500);
-// 	foldAll();
-// 	delay(1500);
-// }
+void Actuators::funnyAction()
+{
+	releaseAll();
+	delay(1500);
+	foldAll();
+	delay(1500);
+}
 
-// void Actuators::dropCherryStream()
-// {
-// 	servoDriver.writeMicroseconds(SERVO_CHERRY_DROP, 1900);
-// }
+void Actuators::dropCherryStream()
+{
+	servoDriver.writeMicroseconds(SERVO_CHERRY_DROP, 1900);
+}
 
 void Actuators::delevateObject(int SIDE, int LEVEL)
 {
@@ -338,42 +349,42 @@ void Actuators::delevateObject(int SIDE, int LEVEL)
 	}
 }
 
-// void Actuators::delevateAll()
-// {
-// 	delevateObject(SIDE_A_ID, 0);
-// 	delevateObject(SIDE_B_ID, 0);
-// 	delevateObject(SIDE_C_ID, 0);
-// }
-// void Actuators::elevateAll()
-// {
-// 	elevateObject(SIDE_A_ID, 3);
-// 	elevateObject(SIDE_B_ID, 3);
-// 	elevateObject(SIDE_C_ID, 3);
-// }
+void Actuators::delevateAll()
+{
+	delevateObject(SIDE_A_ID, 0);
+	delevateObject(SIDE_B_ID, 0);
+	delevateObject(SIDE_C_ID, 0);
+}
+void Actuators::elevateAll()
+{
+	elevateObject(SIDE_A_ID, 3);
+	elevateObject(SIDE_B_ID, 3);
+	elevateObject(SIDE_C_ID, 3);
+}
 
-// void Actuators::initCook()
-// {
-// 	// releaseObject(SIDE_A_ID);
-// 	releaseObject(SIDE_B_ID);
-// 	releaseObject(SIDE_C_ID);
-// 	delay(5000);
-// 	// pickObject(SIDE_A_ID);
-// 	pickObject(SIDE_B_ID);
-// 	pickObject(SIDE_C_ID);
-// 	// elevateObject(SIDE_A_ID, 1);
-// 	elevateObject(SIDE_B_ID, 1);
-// 	elevateObject(SIDE_C_ID, 1);
-// }
+void Actuators::initCook()
+{
+	// releaseObject(SIDE_A_ID);
+	releaseObject(SIDE_B_ID);
+	releaseObject(SIDE_C_ID);
+	delay(5000);
+	// pickObject(SIDE_A_ID);
+	pickObject(SIDE_B_ID);
+	pickObject(SIDE_C_ID);
+	// elevateObject(SIDE_A_ID, 1);
+	elevateObject(SIDE_B_ID, 1);
+	elevateObject(SIDE_C_ID, 1);
+}
 
-// void Actuators::normalize()
-// {
-// 	delevateObject(SIDE_A_ID, 0);
-// 	delevateObject(SIDE_B_ID, 0);
-// 	delevateObject(SIDE_C_ID, 0);
-// 	releaseObject(SIDE_A_ID);
-// 	releaseObject(SIDE_B_ID);
-// 	releaseObject(SIDE_C_ID);
-// 	elevateObject(SIDE_A_ID, 2);
-// 	elevateObject(SIDE_B_ID, 2);
-// 	elevateObject(SIDE_C_ID, 2);
-// }
+void Actuators::normalize()
+{
+	delevateObject(SIDE_A_ID, 0);
+	delevateObject(SIDE_B_ID, 0);
+	delevateObject(SIDE_C_ID, 0);
+	releaseObject(SIDE_A_ID);
+	releaseObject(SIDE_B_ID);
+	releaseObject(SIDE_C_ID);
+	elevateObject(SIDE_A_ID, 2);
+	elevateObject(SIDE_B_ID, 2);
+	elevateObject(SIDE_C_ID, 2);
+}
