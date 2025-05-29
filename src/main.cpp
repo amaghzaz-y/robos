@@ -58,7 +58,5 @@ void loop()
 {
     strategy.Initiation();
     strategy.Ready();
-    // ticker.start();
-    // strategy.Homologuation(&lidarStatus);
     strategy.start(&lidarStatus);
 }

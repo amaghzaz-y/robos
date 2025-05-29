@@ -10,11 +10,12 @@ Movement::Movement()
 	A3 = AccelStepper(1, PIN_M3_STEP, PIN_M3_DIR);
 	A3.setEnablePin(PIN_ENABLE);
 	// TEAM_BLUE = Point2D(211.50, 1749);
-	// TEAM_YELLOW = Point2D(2788.5, 1749);
+	// TEAM_BLUE = Point2D(1238.5, 1749);
+
 	// 1225 1775
-	TEAM_YELLOW = Point2D(1238.5, 1749);
-	TEAM_BLUE = Point2D(1238.5, 1749);
-	//
+	TEAM_YELLOW = Point2D(215, 1225);
+	TEAM_BLUE = Point2D(215, 1775);
+	// TEAM_BLUE = Point2D(211.50, 1749);
 	currentRotation = 0.0;
 	targetRotation = 0.0;
 	angleToDo = 0.0;
@@ -153,11 +154,13 @@ void Movement::setTeam(int i)
 	team = i;
 	if (i == 0)
 	{
-		currentRotation = 60.0;
+		currentRotation = 0.0;
+		currentPoint = TEAM_YELLOW;
 	}
 	else if (i == 1)
 	{
 		currentRotation = 0.0;
+		currentPoint = TEAM_BLUE;
 	}
 }
 

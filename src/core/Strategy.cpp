@@ -39,7 +39,6 @@ void Strategy::teamSelection()
 		team = 0;
 		display.Show("TEAM", "YELLOW", "", "");
 		Serial.println("team YELLOW");
-		// neopixel.changeColor(1);
 	}
 	if (digitalRead(TEAM_PIN) == 1)
 	{
@@ -47,7 +46,6 @@ void Strategy::teamSelection()
 		team = 1;
 		display.Show("TEAM", "BLUE", "", "");
 		Serial.println("team BLUE");
-		// neopixel.changeColor(2);
 	}
 }
 
@@ -100,7 +98,7 @@ void Strategy::start(bool *lidar)
 	}
 	if (team == YELLOW)
 	{
-		strat_YELLOW(lidar);
+		strat_YELLOW_V2(lidar);
 	}
 }
 
@@ -119,37 +117,64 @@ void Strategy::Initiation()
 	}
 }
 
-void Strategy::afterCalibration(bool *lidar)
-{
-	if (team == 0)
-	{
-		Point2D center = Point2D(1225, 1775);
-		movement.Execute(center, lidar);
-	}
-	if (team == 1)
-	{
-		Point2D center = Point2D(225, 1775);
-		movement.Execute(center, lidar);
-	}
-}
+// void Strategy::afterCalibration(bool *lidar)
+// {
+// 	if (team == 0)
+// 	{
+// 		Point2D center = Point2D(1225, 1775);
+// 		movement.Execute(center, lidar);
+// 	}
+// 	if (team == 1)
+// 	{
+// 		Point2D center = Point2D(225, 1775);
+// 		movement.Execute(center, lidar);
+// 	}
+// }
 
-void Strategy::strat_BLUE(bool *lidar)
+void Strategy::strat_YELLOW(bool *lidar)
 {
-	Point2D center = Point2D(1000, 2249);
+	Point2D center = Point2D(2000, 1225);
 	movement.setSide(SIDE_A);
 	movement.Execute(center, lidar);
-	Point2D p1 = Point2D(1500, 2249);
+	Point2D p1 = Point2D(1700, 1225);
+	movement.setSide(SIDE_A);
+	movement.Execute(p1, lidar);
+	Point2D p2 = Point2D(150, 300);
 	movement.setSide(SIDE_A);
 	movement.Execute(p1, lidar);
 	stop();
 }
 
-void Strategy::strat_YELLOW(bool *lidar)
+void Strategy::strat_YELLOW_V2(bool *lidar)
 {
-	Point2D center = Point2D(1000, 1749);
+	// put bannerzZs
+	movement.Execute(Point2D(0, 1225), lidar);
+	// go out
+	movement.Execute(Point2D(300, 1225), lidar);
+	// prepare
+	movement.Execute(Point2D(500, 1000), lidar);
+	movement.Execute(Point2D(500, 775), lidar);
+	movement.Execute(Point2D(600, 775), lidar);
+	// push cans
+	movement.setSide(SIDE_A);
+	movement.ExecuteSEMI(Point2D(100, 775), lidar);
+	// go back
+	movement.setSide(SIDE_BC);
+	movement.ExecuteSEMI(Point2D(300, 775), lidar);
+	// go home
+	movement.ExecuteSEMI(Point2D(1775, 375), lidar);
+	stop();
+}
+
+void Strategy::strat_BLUE(bool *lidar)
+{
+	Point2D center = Point2D(2000, 3000 - 1225);
 	movement.setSide(SIDE_A);
 	movement.Execute(center, lidar);
-	Point2D p1 = Point2D(1500, 1749);
+	Point2D p1 = Point2D(1700, 3000 - 1225);
+	movement.setSide(SIDE_A);
+	movement.Execute(p1, lidar);
+	Point2D p2 = Point2D(150, 3000 - 300);
 	movement.setSide(SIDE_A);
 	movement.Execute(p1, lidar);
 	stop();
@@ -157,18 +182,15 @@ void Strategy::strat_YELLOW(bool *lidar)
 
 void Strategy::Homologuation(bool *lidar)
 {
-	Point2D center = Point2D(1000, 1749);
+	Point2D center = Point2D(2000, 3000 - 1225);
 	movement.setSide(SIDE_A);
 	movement.Execute(center, lidar);
-	Point2D p1 = Point2D(1500, 1749);
+	Point2D p1 = Point2D(1700, 3000 - 1225);
 	movement.setSide(SIDE_A);
 	movement.Execute(p1, lidar);
-	// Point2D p2 = Point2D(1300, 1500);
-	// movement.setSide(SIDE_A);
-	// movement.Execute(p2, lidar);
-	Point2D p3 = Point2D(225, 225);
+	Point2D p2 = Point2D(150, 3000 - 300);
 	movement.setSide(SIDE_A);
-	movement.Execute(p3, lidar);
+	movement.Execute(p2, lidar);
 	stop();
 }
 
