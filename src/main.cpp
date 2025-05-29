@@ -26,6 +26,7 @@ void LidarTask(void *pvParameters)
         if (count > 15)
         {
             lidarStatus = true;
+            // Serial.println("DETECTED");
             count = 0;
         }
         else
@@ -40,11 +41,11 @@ int value = 0;
 
 void setup()
 {
-    delay(2000);
+    // delay(2000);
     Serial.begin(9600);
     Serial.println("setup start");
     lidar.setup();
-    lidar.setMaxRange(450); // 300
+    lidar.setMaxRange(350); // 300
     lidar.setRadius(360);
     lidar.setAngle(180);
     strategy.setup();
@@ -57,8 +58,7 @@ void loop()
 {
     strategy.Initiation();
     strategy.Ready();
-    delay(5000);
-    // delay(5000);
     // ticker.start();
-    // strategy.start(&lidarStatus);
+    // strategy.Homologuation(&lidarStatus);
+    strategy.start(&lidarStatus);
 }

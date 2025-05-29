@@ -9,15 +9,19 @@ Movement::Movement()
 	A2.setEnablePin(PIN_ENABLE);
 	A3 = AccelStepper(1, PIN_M3_STEP, PIN_M3_DIR);
 	A3.setEnablePin(PIN_ENABLE);
-	TEAM_BLUE = Point2D(211.50, 1749);
-	TEAM_YELLOW = Point2D(2788.5, 1749);
+	// TEAM_BLUE = Point2D(211.50, 1749);
+	// TEAM_YELLOW = Point2D(2788.5, 1749);
+	// 1225 1775
+	TEAM_YELLOW = Point2D(1238.5, 1749);
+	TEAM_BLUE = Point2D(1238.5, 1749);
+	//
 	currentRotation = 0.0;
 	targetRotation = 0.0;
 	angleToDo = 0.0;
 	calibrated = false;
 	isHome = false;
-	currentPoint = TEAM_BLUE;
-	team = 1;
+	currentPoint = TEAM_YELLOW;
+	team = 0;
 	currentSideAngle = SIDE_A;
 	Serial.println("Movement :: setup done");
 }
@@ -78,6 +82,11 @@ void Movement::moveTo(Steps steps)
 	Serial.print(accelY);
 	Serial.print(" - AccelZ : ");
 	Serial.println(accelZ);
+
+	Serial.print("X : ");
+	Serial.print(currentPoint.X);
+	Serial.print(" - Y : ");
+	Serial.println(currentPoint.Y);
 
 	A1.setCurrentPosition(0);
 	A2.setCurrentPosition(0);
@@ -359,6 +368,7 @@ void Movement::calibrate()
 		isHome = true;
 		calibrated = true;
 		currentPoint = TEAM_YELLOW;
+		// currentRotation = 120.0;
 	}
 
 	// BLUE
@@ -385,7 +395,7 @@ void Movement::calibrate()
 
 bool Movement::isCalibrated()
 {
-	return calibrated;
+	return true;
 }
 
 void Movement::Execute(Point2D point, bool *lidar)

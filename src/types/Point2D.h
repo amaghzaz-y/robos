@@ -7,8 +7,8 @@
 class Point2D
 {
 public:
-	int X;
-	int Y;
-	Point2D(int x, int y);
+	float X;
+	float Y;
+	Point2D(float x, float y);
 	Point2D();
 };

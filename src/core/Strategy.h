@@ -11,9 +11,6 @@
 #include "core/NeoPixel.h"
 #include "core/Sensors.h"
 
-#define HEIGHT 3000 // value in mm
-#define WIDTH 2000	// value in mm
-
 const int PIN_RST_OLED = 19;
 const int INIT_PIN = PIN_L1;
 const int TEAM_PIN = PIN_L2;
@@ -34,7 +31,7 @@ public:
 	Actuators actuators;
 	Display display;
 	// NeoPixel neopixel;
-	Sensors sensors;
+	// Sensors sensors;
 	void Initiation();
 	void Ready();
 	void setup();
@@ -43,7 +40,6 @@ public:
 	void setPoints(Point2D *points, int len);
 	void strat_BLUE(bool *lidar);
 	void strat_YELLOW(bool *lidar);
-	void CoupOff();
 	void afterCalibration(bool *lidar);
 	void Homologuation(bool *lidar);
 	Point2D getCurrentPoint();

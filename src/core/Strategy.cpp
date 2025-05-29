@@ -23,7 +23,7 @@ void Strategy::init()
 	if (digitalRead(INIT_PIN) == 0)
 	{
 		Serial.println("Starting Calibration");
-		movement.calibrate();
+		// movement.calibrate();
 	}
 	else
 	{
@@ -89,7 +89,7 @@ void Strategy::Ready()
 		Serial.println("GOOOOOO");
 		// neopixel.changeColor(0);
 	}
-	// Serial.println("ready");
+	Serial.println(team);
 }
 
 void Strategy::start(bool *lidar)
@@ -112,7 +112,7 @@ void Strategy::setPoints(Point2D *p, int len)
 
 void Strategy::Initiation()
 {
-	while (!movement.isCalibrated() || !movement.atHome())
+	while (!movement.isCalibrated())
 	{
 		init();
 		teamSelection();
@@ -123,7 +123,7 @@ void Strategy::afterCalibration(bool *lidar)
 {
 	if (team == 0)
 	{
-		Point2D center = Point2D(225, 225);
+		Point2D center = Point2D(1225, 1775);
 		movement.Execute(center, lidar);
 	}
 	if (team == 1)
@@ -135,127 +135,41 @@ void Strategy::afterCalibration(bool *lidar)
 
 void Strategy::strat_BLUE(bool *lidar)
 {
-	// homes
-	Point2D home_alpha = Point2D(300, 1700);
-	Point2D home_beta = Point2D(300, 300);
-	Point2D home_theta = Point2D(2775, 1000);
-
-	// flowers
-	Point2D alpha = Point2D(1000, 1300);
-	Point2D beta = Point2D(1000, 700);
-	Point2D tetha = Point2D(1500, 1500);
-
-	// flags checkpoints
-	Point2D b0 = Point2D(225, 1820);
-	Point2D b1 = Point2D(850, 1820);
-	Point2D b2 = Point2D(850, 1750);
-
-	// checkpoints
-	Point2D delta0 = Point2D(1300, 1600);
-	Point2D delta1 = Point2D(500, 500);
-	Point2D delta2 = Point2D(600, 225);
-	Point2D delta3 = Point2D(1000, 225);
-	Point2D delta4 = Point2D(1300, 400);
-	Point2D delta5 = Point2D(1250, 1650);
-
-	// actuators.elevateAll();
-	// actuators.releaseAll();
-
-	// turn flags
-	movement.setSide(SIDE_C);
-	movement.ExecuteSEMI(b0, lidar);
-	movement.setSide(SIDE_CA);
-	movement.ExecuteSEMI(b1, lidar);
-	movement.setSide(30);
-	movement.ExecuteSEMI(b2, lidar);
-	// 1. go to delta 0
+	Point2D center = Point2D(1000, 2249);
 	movement.setSide(SIDE_A);
-	movement.ExecuteSEMI(delta0, lidar);
-	// 2. push alpha to home beta
-	// actuators.delevateObject(SIDE_B_ID, 0);
-	movement.setSide(SIDE_B);
-	movement.ExecuteSEMI(home_beta, lidar);
-	// 3. go to delta 1
-	movement.setSide(SIDE_CA);
-	movement.ExecuteSEMI(delta1, lidar);
-	// 3. go to delta 2
+	movement.Execute(center, lidar);
+	Point2D p1 = Point2D(1500, 2249);
 	movement.setSide(SIDE_A);
-	movement.ExecuteSEMI(delta2, lidar);
-	// 4. go to delta 3
-	movement.setSide(SIDE_C);
-	movement.ExecuteSEMI(delta3, lidar);
-	// 5. go to delta 4
-	movement.setSide(SIDE_C);
-	movement.ExecuteSEMI(delta4, lidar);
-	// 6.  push beta to home alpha
-	movement.setSide(SIDE_B);
-	movement.ExecuteSEMI(home_alpha, lidar);
-	// 7. go to delta5
-	movement.setSide(SIDE_AB);
-	movement.ExecuteSEMI(delta5, lidar);
-	// 8. push theta to home theta
-	movement.setSide(SIDE_B);
-	movement.ExecuteSEMI(home_theta, lidar);
+	movement.Execute(p1, lidar);
+	stop();
 }
 
 void Strategy::strat_YELLOW(bool *lidar)
 {
-	//
-	Point2D startingPosition = Point2D(1225, 1775);
-	Point2D endingPosition = Point2D(325, 225);
-
-	Point2D waypoint1 = Point2D(1100, 1400);
-	Point2D waypoint2 = Point2D(775, 1400);
-	Point2D waypoint3 = Point2D(775, 1800);
-	Point2D waypoint4 = Point2D(1500, 1500);
-	Point2D waypoint5 = Point2D(1500, 1500);
-
-	// // homes
-	// Point2D home_alpha = Point2D(3000 - 300, 1700);
-	// Point2D home_beta = Point2D(3000 - 300, 300);
-	// Point2D home_theta = Point2D(3000 - 2775, 1000);
-
-	// // flowers
-	// Point2D alpha = Point2D(3000 - 1000, 1300);
-	// Point2D beta = Point2D(3000 - 1000, 700);
-	// Point2D tetha = Point2D(3000 - 1500, 1500);
-
-	// // flags checkpoints
-	// Point2D b0 = Point2D(3000 - 225, 1820);
-	// Point2D b1 = Point2D(3000 - 850, 1820);
-	// Point2D b2 = Point2D(3000 - 850, 1750);
-
-	// // checkpoints
-	// Point2D delta0 = Point2D(3000 - 1300, 1600);
-	// Point2D delta1 = Point2D(3000 - 500, 500);
-	// Point2D delta2 = Point2D(3000 - 600, 225);
-	// Point2D delta3 = Point2D(3000 - 1000, 225);
-	// Point2D delta4 = Point2D(3000 - 1300, 400);
-	// Point2D delta5 = Point2D(3000 - 1250, 1650);
-
-	// // actuators.elevateAll();
-	// // actuators.releaseAll();
-	// // turn flags
-	// movement.setSide(SIDE_C);
-	// movement.ExecuteSEMI(b0, lidar);
-	// movement.setSide(SIDE_BC);
-	// movement.ExecuteSEMI(b1, lidar);
-	// movement.setSide(30);
-	// movement.setSide(SIDE_B);
-	// movement.ExecuteSEMI(b2, lidar);
+	Point2D center = Point2D(1000, 1749);
+	movement.setSide(SIDE_A);
+	movement.Execute(center, lidar);
+	Point2D p1 = Point2D(1500, 1749);
+	movement.setSide(SIDE_A);
+	movement.Execute(p1, lidar);
+	stop();
 }
 
 void Strategy::Homologuation(bool *lidar)
 {
-	Point2D middle = Point2D(575, 1000);
-	Point2D home2 = Point2D(225, 225);
-
-	if (team == BLUE)
-	{
-		movement.setSide(SIDE_A);
-		movement.ExecuteSEMI(middle, lidar);
-		movement.ExecuteSEMI(home2, lidar);
-	}
+	Point2D center = Point2D(1000, 1749);
+	movement.setSide(SIDE_A);
+	movement.Execute(center, lidar);
+	Point2D p1 = Point2D(1500, 1749);
+	movement.setSide(SIDE_A);
+	movement.Execute(p1, lidar);
+	// Point2D p2 = Point2D(1300, 1500);
+	// movement.setSide(SIDE_A);
+	// movement.Execute(p2, lidar);
+	Point2D p3 = Point2D(225, 225);
+	movement.setSide(SIDE_A);
+	movement.Execute(p3, lidar);
+	stop();
 }
 
 Point2D Strategy::getCurrentPoint()
