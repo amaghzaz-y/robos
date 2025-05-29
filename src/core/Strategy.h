@@ -39,6 +39,7 @@ public:
 	void stop();
 	void setPoints(Point2D *points, int len);
 	void strat_BLUE(bool *lidar);
+	void strat_BLUE_V2(bool *lidar);
 	void strat_YELLOW(bool *lidar);
 	void strat_YELLOW_V2(bool *lidar);
 	void Homologuation(bool *lidar);

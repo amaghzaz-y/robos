@@ -94,7 +94,7 @@ void Strategy::start(bool *lidar)
 {
 	if (team == BLUE)
 	{
-		strat_BLUE(lidar);
+		strat_BLUE_V2(lidar);
 	}
 	if (team == YELLOW)
 	{
@@ -148,7 +148,7 @@ void Strategy::strat_YELLOW(bool *lidar)
 void Strategy::strat_YELLOW_V2(bool *lidar)
 {
 	// put bannerzZs
-	movement.Execute(Point2D(0, 1225), lidar);
+	movement.Execute(Point2D(75, 1225), lidar);
 	// go out
 	movement.Execute(Point2D(300, 1225), lidar);
 	// prepare
@@ -163,6 +163,27 @@ void Strategy::strat_YELLOW_V2(bool *lidar)
 	movement.ExecuteSEMI(Point2D(300, 775), lidar);
 	// go home
 	movement.ExecuteSEMI(Point2D(1775, 375), lidar);
+	stop();
+}
+
+void Strategy::strat_BLUE_V2(bool *lidar)
+{
+	// put bannerzZs
+	movement.Execute(Point2D(75, 3000 - 1225), lidar);
+	// go out
+	movement.Execute(Point2D(300, 3000 - 1225), lidar);
+	// prepare
+	movement.Execute(Point2D(500, 3000 - 1000), lidar);
+	movement.Execute(Point2D(500, 3000 - 775), lidar);
+	movement.Execute(Point2D(600, 3000 - 775), lidar);
+	// push cans
+	movement.setSide(SIDE_A);
+	movement.ExecuteSEMI(Point2D(100, 3000 - 775), lidar);
+	// go back
+	movement.setSide(SIDE_BC);
+	movement.ExecuteSEMI(Point2D(300, 3000 - 775), lidar);
+	// go home
+	movement.ExecuteSEMI(Point2D(1775, 3000 - 375), lidar);
 	stop();
 }
 
